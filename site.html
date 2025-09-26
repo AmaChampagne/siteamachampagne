@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMA Champagne — Maison indépendante & dégustations privées</title>
+    <meta name="description" content="Maison AMA Champagne. Cuvées d'exception, engagements HVE & VDC. Réservez votre dégustation privée.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --blanc: #FFFFFF;
+            --dore: #be9c40;
+            --noir: #0B0B0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--blanc);
+            color: var(--noir);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 11, 11, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo-nav {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--blanc);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--dore);
+        }
+
+        /* Menu burger pour mobile */
+        .menu-burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-burger span {
+            width: 25px;
+            height: 3px;
+            background: var(--blanc);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0B0B0B 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 80px 20px 0;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-out;
+            max-width: 800px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-bottom: 2rem;
+        }
+
+        .logo-hero {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--blanc);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .hero-subtitle {
+            color: var(--dore);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+        }
+
+        /* Bandeau en bas du hero */
+        .bandeau-hero {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: var(--dore);
+            margin-top: auto;
+        }
+
+        .bandeau-hero p {
+            color: var(--noir);
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Boutons CTA */
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--dore);
+            color: var(--noir);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--dore);
+            cursor: pointer;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--blanc);
+            transition: left 0.4s ease;
+            z-index: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(190, 156, 64, 0.4);
+            border-color: var(--blanc);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bandeau-hero {
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background: rgba(190, 156, 64, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .bandeau-hero p {
+            color: white;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            margin: 0;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--noir);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--dore);
+        }
+
+        /* Valeurs */
+        .valeurs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .valeur-card {
+            text-align: center;
+            padding: 2rem 1rem;
+            transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .valeur-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+
+        .valeur-card:nth-child(1).visible { transition-delay: 0.1s; }
+        .valeur-card:nth-child(2).visible { transition-delay: 0.2s; }
+        .valeur-card:nth-child(3).visible { transition-delay: 0.3s; }
+        .valeur-card:nth-child(4).visible { transition-delay: 0.4s; }
+
+        .valeur-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .valeur-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--dore), #d4b05a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(190, 156, 64, 0.3);
+        }
+
+        .valeur-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--dore);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .valeur-card h3 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            margin-bottom: 1rem;
+            color: var(--noir);
+            letter-spacing: 1px;
+        }
+
+        .valeur-card p {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.6;
+        }
+
+        /* Catalogue */
+        .catalogue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .cuvee-card {
+            background: var(--blanc);
+            border: 1px solid #e0e0e0;
+            padding: 2rem;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cuvee-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+
+        .cuvee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: var(--dore);
+        }
+
+        .cuvee-name {
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            margin-bottom: 0.5rem;
+            color: var(--noir);
+        }
+
+        .cuvee-type {
+            color: var(--dore);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact */
+        .contact-section {
+            background: var(--noir);
+            color: var(--blanc);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .contact-section h2 {
+            color: var(--blanc);
+        }
+
+        .contact-section .cta-button {
+            background: var(--blanc);
+            color: var(--noir);
+            border-color: var(--blanc);
+        }
+
+        .contact-section .cta-button:hover {
+            background: transparent;
+            color: var(--blanc);
+        }
+
+        .contact-info {
+            margin: 2rem 0;
+        }
+
+        .contact-info a {
+            color: var(--dore);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #888;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--dore);
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(11, 11, 11, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: start;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-burger {
+                display: flex;
+            }
+
+            .menu-burger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-burger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-burger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .hero {
+                padding: 100px 20px 0;
+            }
+
+            .bandeau-hero p {
+                font-size: 1rem;
+            }
+
+            .logo-hero {
+                width: 140px;
+                height: 140px;
+            }
+
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            .valeurs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .catalogue-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .bandeau-hero {
+                padding: 1.2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            footer a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <img src="https://raw.githubusercontent.com/Allan77bot/logo-ama-/dac4e466beaaa167cfb23ec7a4123be8167e92b7/Design%20sans%20titre.svg" alt="AMA" class="logo-nav">
+            <div class="menu-burger" id="menuBurger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#catalogue">Nos Cuvées</a></li>
+                <li><a href="#engagements">Engagements</a></li>
+                <li><a href="#histoire">Histoire</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <img src="https://raw.githubusercontent.com/Allan77bot/logo-ama-/dac4e466beaaa167cfb23ec7a4123be8167e92b7/Design%20sans%20titre.svg" alt="AMA Champagne" class="logo-hero">
+            <h1>AMA Champagne</h1>
+            <p class="hero-subtitle">Maison indépendante — Cuvées d'exception & dégustations privées</p>
+            <a href="https://calendly.com/contact-amachampagne/30min" target="_blank" class="cta-button">
+                <span>Réserver une dégustation</span>
+            </a>
+        </div>
+        <div class="bandeau-hero">
+            <p>Issu d'un vigneron indépendant</p>
+        </div>
+    </section>
+
+    <!-- Valeurs -->
+    <section class="section">
+        <h2 class="section-title">Nos Valeurs</h2>
+        <div class="valeurs-grid">
+            <div class="valeur-card">
+                <div class="valeur-icon">
+                    <span style="font-size: 35px; color: white;">♔</span>
+                </div>
+                <h3>Excellence & Prestige</h3>
+                <p>Chaque cuvée est créée selon les standards les plus exigeants, incarnant le summum du raffinement champenois.</p>
+            </div>
+            <div class="valeur-card">
+                <div class="valeur-icon">
+                    <span style="font-size: 35px; color: white;">⧗</span>
+                </div>
+                <h3>Héritage Séculaire</h3>
+                <p>Quatre générations de passion et de savoir-faire, perpétuant les traditions les plus nobles de la Champagne.</p>
+            </div>
+            <div class="valeur-card">
+                <div class="valeur-icon">
+                    <span style="font-size: 35px; color: white;">◈</span>
+                </div>
+                <h3>Terroir d'Exception</h3>
+                <p>Des parcelles soigneusement sélectionnées sur les meilleurs coteaux, exprimant la quintessence de notre terroir.</p>
+            </div>
+            <div class="valeur-card">
+                <div class="valeur-icon">
+                    <span style="font-size: 35px; color: white;">✦</span>
+                </div>
+                <h3>Art de Vivre</h3>
+                <p>Une expérience sensorielle unique, célébrant les moments précieux avec élégance et sophistication.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalogue -->
+    <section id="catalogue" class="section">
+        <h2 class="section-title">La Collection AMA</h2>
+        <p style="text-align: center; margin-bottom: 2rem;">Des cuvées rares, nobles et intemporelles</p>
+        <div class="catalogue-grid">
+            <div class="cuvee-card">
+                <h3 class="cuvee-name">Apothéose</h3>
+                <p class="cuvee-type">100% Pinot Meunier</p>
+                <p>Grand vin de caractère, profond et rare, offrant une puissance équilibrée par une élégance raffinée.</p>
+            </div>
+            <div class="cuvee-card">
+                <h3 class="cuvee-name">Destinée</h3>
+                <p class="cuvee-type">Rosé de Saignée</p>
+                <p>Élaboré par macération des moûts avec la peau des raisins, révélant une intensité aromatique et une finesse exceptionnelle.</p>
+            </div>
+            <div class="cuvee-card">
+                <h3 class="cuvee-name">La Rosée Royale</h3>
+                <p class="cuvee-type">Perle de Rosé – Pinot Meunier & Vin Rouge</p>
+                <p>Un rosé chic et subtil, mêlant noblesse et fraîcheur, pensé pour séduire autant les hommes que les femmes.</p>
+            </div>
+            <div class="cuvee-card">
+                <h3 class="cuvee-name">Héritage Brut Réserve</h3>
+                <p class="cuvee-type">Brut Trésor</p>
+                <p>Aérien, subtil et harmonieux, il incarne l'élégance intemporelle et la tradition des grandes maisons.</p>
+            </div>
+            <div class="cuvee-card">
+                <h3 class="cuvee-name">Perle Noire, Âme Blanche</h3>
+                <p class="cuvee-type">100% Pinot Noir – Blanc de Noirs</p>
+                <p>Un contraste rare : force et intensité du noir, sublimées par la pureté lumineuse du blanc.</p>
+            </div>
+            <div class="cuvee-card">
+                <h3 class="cuvee-name">Divinité</h3>
+                <p class="cuvee-type">100% Chardonnay – Blanc de Blancs</p>
+                <p>Champagne de lumière, raffiné et intemporel, il exprime la pureté et l'excellence des grands chardonnays.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="https://calendly.com/contact-amachampagne/30min" target="_blank" class="cta-button">
+                <span>Réserver une dégustation</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Engagements -->
+    <section id="engagements" class="section fade-in">
+        <h2 class="section-title">Origine & Engagements</h2>
+        <div style="background: #fafafa; padding: 3rem 2rem; border-left: 4px solid var(--dore);">
+            <h3 style="margin-bottom: 1.5rem;">Un engagement pour l'excellence et la durabilité</h3>
+            <p>La Maison AMA Champagne est fière d'être certifiée <strong>Haute Valeur Environnementale (HVE)</strong> et engagée dans la <strong>Viticulture Durable en Champagne (VDC)</strong>.</p>
+            <ul style="list-style: none; margin: 2rem 0;">
+                <li style="margin-bottom: 1rem;">✓ <strong>Aucun désherbant utilisé</strong> : préservation des sols et de la biodiversité</li>
+                <li style="margin-bottom: 1rem;">✓ <strong>Vendanges soignées</strong> : raisin pur et jus précis et lumineux</li>
+                <li style="margin-bottom: 1rem;">✓ <strong>Respect du vivant</strong> : pratiques favorisant la vie des sols</li>
+            </ul>
+            <p style="font-style: italic; color: var(--dore);">"De cette rigueur naissent des champagnes rares, nobles et intemporels."</p>
+        </div>
+    </section>
+
+    <!-- Histoire -->
+    <section id="histoire" class="section fade-in">
+        <h2 class="section-title">Notre Histoire</h2>
+        <div style="margin-top: 3rem;">
+            <h3 style="margin-bottom: 1.5rem;">Une vision claire, une exigence absolue</h3>
+            <p style="margin-bottom: 1.5rem;"><strong>Michael, Alejandro et Allan</strong> avaient une idée précise : proposer un champagne <strong>indépendant</strong> et vraiment <strong>premium</strong>. Dès le départ, nous avons choisi la transparence : <strong>nous ne sommes pas les producteurs directs</strong>. Notre rôle est de sélectionner, d'exiger et d'expliquer ; celui de la vigne et de la cave revient à <strong>un vigneron indépendant</strong> que nous avons cherché longuement.</p>
+            
+            <p style="margin-bottom: 1.5rem;">Nous avons visité des domaines, goûté, posé toujours les mêmes questions sur la taille, les vendanges, le pressurage, le temps sur lattes. Un jour, nous avons trouvé la bonne rencontre : peu de cuvées, des gestes précis, <strong>zéro désherbant</strong>, et une obsession du détail. Le vin parlait de lui-même : net, droit, élégant.</p>
+            
+            <div style="background: #fafafa; padding: 2rem; border-left: 4px solid var(--dore); margin: 2rem 0;">
+                <p style="margin-bottom: 1rem; font-weight: 600;">Le partenariat est simple :</p>
+                <ul style="list-style: none; margin: 0;">
+                    <li style="margin-bottom: 0.8rem; padding-left: 1.5rem;">• le vigneron <strong>cultive et élabore</strong> dans le respect du terroir ;</li>
+                    <li style="padding-left: 1.5rem;">• <strong>nous</strong> garantissons le <strong>cap qualité</strong>, la cohérence des cuvées, la présentation et l'expérience de dégustation.</li>
+                </ul>
+            </div>
+            
+            <p>Nous préférons <strong>peu de bouteilles</strong> et un haut niveau d'exigence à la facilité. Chaque dégustation raconte cette démarche : un champagne choisi pour sa justesse, né d'un savoir-faire indépendant, et présenté avec la même simplicité — sans promesses superflues, juste la <strong>qualité</strong> tenue de la vigne au verre.</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title" style="color: white;">Contact & Réservation</h2>
+        <p style="margin-bottom: 2rem;">Réservez votre dégustation privée et découvrez l'univers AMA Champagne</p>
+        <a href="https://calendly.com/contact-amachampagne/30min" target="_blank" class="cta-button">
+            <span>Réserver une dégustation</span>
+        </a>
+        <div class="contact-info">
+            <p>📧 <a href="mailto:contact@amachampagne.fr">contact@amachampagne.fr</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 AMA Champagne - Tous droits réservés</p>
+        <div style="margin-top: 1rem;">
+            <a href="#">Mentions légales</a>
+            <a href="#">Politique de confidentialité</a>
+        </div>
+    </footer>
+
+    <script>
+        // Menu burger mobile
+        const menuBurger = document.getElementById('menuBurger');
+        const navLinks = document.getElementById('navLinks');
+
+        menuBurger.addEventListener('click', () => {
+            menuBurger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuBurger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Animation au scroll pour la navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(11, 11, 11, 0.98)';
+            } else {
+                nav.style.background = 'rgba(11, 11, 11, 0.95)';
+            }
+        });
+
+        // Animation de fondu au défilement
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.valeur-card, .cuvee-card, .fade-in');
+            const windowHeight = window.innerHeight;
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Ajouter la classe fade-in aux éléments
+        document.addEventListener('DOMContentLoaded', () => {
+            // Déclencher l'animation au chargement
+            setTimeout(() => {
+                handleScrollAnimation();
+            }, 100);
+        });
+
+        // Écouter le défilement
+        window.addEventListener('scroll', handleScrollAnimation);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
