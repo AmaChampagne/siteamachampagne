@@ -9,6 +9,10 @@
     <meta property="og:type" content="website">
     <title>AMA Champagne — Le champagne dans sa plus pure expression</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true">
+    <link rel="apple-touch-icon" href="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true">
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -89,14 +93,14 @@
         }
 
         .nav-logo {
-            height: 50px;
+            height: 70px;
             opacity: 0;
             transform: translateY(-20px);
             animation: fadeInDown 1s ease 0.5s forwards;
         }
 
         nav.scrolled .nav-logo {
-            height: 40px;
+            height: 55px;
         }
 
         .nav-links {
@@ -205,7 +209,7 @@
         }
 
         .hero-logo {
-            width: min(280px, 60vw);
+            width: min(380px, 75vw);
             margin-bottom: 3rem;
             opacity: 0;
             transform: scale(0.9);
@@ -322,7 +326,16 @@
         }
 
         .teaser-bottle.visible {
-            animation: bottleFloat 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: bottleFloat 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards, bottleHover 4s ease-in-out 1.2s infinite;
+        }
+
+        @keyframes bottleHover {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(1deg);
+            }
         }
 
         .teaser-glow {
@@ -494,22 +507,26 @@
         }
 
         .cuvees-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 1px;
             background: rgba(184, 163, 87, 0.1);
-            max-width: 1400px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .cuvee-card {
             background: var(--black);
-            padding: 4rem 3rem;
+            padding: 3.5rem 4rem;
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(40px);
             transition: background 0.5s ease;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: center;
         }
 
         .cuvee-card.visible {
@@ -528,38 +545,41 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            transform: scaleX(0);
+            width: 3px;
+            height: 100%;
+            background: var(--gold);
+            transform: scaleY(0);
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cuvee-card:hover::before {
-            transform: scaleX(1);
+            transform: scaleY(1);
         }
 
         .cuvee-card:hover {
             background: rgba(184, 163, 87, 0.03);
         }
 
+        .cuvee-info {
+            display: flex;
+            flex-direction: column;
+        }
+
         .cuvee-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
-            font-weight: 300;
-            color: rgba(184, 163, 87, 0.15);
-            position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-            line-height: 1;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
         }
 
         .cuvee-name {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
             font-weight: 400;
-            color: var(--gold);
+            color: var(--cream);
             margin-bottom: 0.5rem;
         }
 
@@ -567,28 +587,29 @@
             font-size: 0.75rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--gray-light);
-            margin-bottom: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
         }
 
         .cuvee-description {
             font-size: 0.95rem;
             line-height: 1.9;
             color: var(--cream);
-            opacity: 0.8;
-            margin-bottom: 2rem;
-            max-width: 400px;
+            opacity: 0.7;
+            max-width: 550px;
         }
 
         .cuvee-price {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 500;
             color: var(--cream);
+            text-align: right;
+            white-space: nowrap;
         }
 
         .cuvee-price span {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 300;
             color: var(--gray-light);
             margin-left: 0.3rem;
@@ -596,73 +617,30 @@
 
         /* Featured Cuvée (Apothéose) */
         .cuvee-card.featured {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            padding: 5rem 4rem;
-            background: linear-gradient(135deg, rgba(184, 163, 87, 0.05) 0%, transparent 50%);
-        }
-
-        .cuvee-card.featured .cuvee-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .cuvee-card.featured .cuvee-name {
-            font-size: clamp(2.2rem, 4vw, 3rem);
-        }
-
-        .cuvee-card.featured .cuvee-description {
-            max-width: 500px;
-            font-size: 1.05rem;
+            background: linear-gradient(135deg, rgba(184, 163, 87, 0.08) 0%, transparent 50%);
+            padding: 4rem;
+            border: 1px solid rgba(184, 163, 87, 0.2);
         }
 
         .cuvee-card.featured .cuvee-badge {
             display: inline-block;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 1rem;
             border: 1px solid var(--gold);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            width: fit-content;
         }
 
-        .cuvee-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .cuvee-visual-circle {
-            width: 250px;
-            height: 250px;
-            border: 1px solid rgba(184, 163, 87, 0.3);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .cuvee-visual-circle::before {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 1px solid rgba(184, 163, 87, 0.15);
-            border-radius: 50%;
-        }
-
-        .cuvee-visual-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.5rem;
+        .cuvee-card.featured .cuvee-name {
+            font-size: clamp(2rem, 4vw, 3rem);
             color: var(--gold);
-            text-align: center;
+        }
+
+        .cuvee-card.featured .cuvee-price {
+            font-size: 2.8rem;
         }
 
         /* Contact Section */
@@ -942,20 +920,6 @@
                 max-height: 50vh;
             }
 
-            .cuvees-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cuvee-card.featured {
-                grid-column: span 1;
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .cuvee-visual {
-                order: -1;
-            }
-
             .contact-wrapper {
                 grid-template-columns: 1fr;
                 gap: 4rem;
@@ -969,6 +933,14 @@
 
             nav.scrolled {
                 padding: 1rem 2rem;
+            }
+
+            .nav-logo {
+                height: 50px;
+            }
+
+            nav.scrolled .nav-logo {
+                height: 40px;
             }
 
             .nav-links {
@@ -1020,15 +992,25 @@
             }
 
             .cuvee-card {
-                padding: 3rem 2rem;
+                padding: 2.5rem 2rem;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cuvee-price {
+                text-align: left;
             }
 
             .cuvee-card.featured {
-                padding: 3rem 2rem;
+                padding: 2.5rem 2rem;
             }
 
             .contact-degustation {
                 padding: 2.5rem 2rem;
+            }
+
+            .hero-logo {
+                width: min(280px, 70vw);
             }
         }
     </style>
@@ -1124,59 +1106,64 @@
         
         <div class="cuvees-grid">
             <div class="cuvee-card" data-animate>
-                <span class="cuvee-number">01</span>
-                <h3 class="cuvee-name">La Rosée Royale</h3>
-                <p class="cuvee-type">Perle de Rosé – Pinot Meunier & Vin Rouge</p>
-                <p class="cuvee-description">Un rosé chic et subtil, mêlant fraîcheur et noblesse, pensé pour séduire autant les hommes que les femmes.</p>
+                <div class="cuvee-info">
+                    <span class="cuvee-number">01</span>
+                    <h3 class="cuvee-name">La Rosée Royale</h3>
+                    <p class="cuvee-type">Perle de Rosé – Pinot Meunier & Vin Rouge</p>
+                    <p class="cuvee-description">Un rosé chic et subtil, mêlant fraîcheur et noblesse, pensé pour séduire autant les hommes que les femmes.</p>
+                </div>
                 <p class="cuvee-price">119<span>€</span></p>
             </div>
             
             <div class="cuvee-card" data-animate>
-                <span class="cuvee-number">02</span>
-                <h3 class="cuvee-name">Héritage Brut Réserve</h3>
-                <p class="cuvee-type">Brut</p>
-                <p class="cuvee-description">Brut trésor, aérien et harmonieux, il incarne l'élégance intemporelle et la tradition des grandes maisons.</p>
+                <div class="cuvee-info">
+                    <span class="cuvee-number">02</span>
+                    <h3 class="cuvee-name">Héritage Brut Réserve</h3>
+                    <p class="cuvee-type">Brut</p>
+                    <p class="cuvee-description">Brut trésor, aérien et harmonieux, il incarne l'élégance intemporelle et la tradition des grandes maisons.</p>
+                </div>
                 <p class="cuvee-price">129<span>€</span></p>
             </div>
             
             <div class="cuvee-card" data-animate>
-                <span class="cuvee-number">03</span>
-                <h3 class="cuvee-name">Perle Noire, Âme Blanche</h3>
-                <p class="cuvee-type">100% Pinot Noir – Blanc de Noirs</p>
-                <p class="cuvee-description">Un blanc d'une intensité rare, sublimé par la pureté lumineuse du Pinot Noir.</p>
+                <div class="cuvee-info">
+                    <span class="cuvee-number">03</span>
+                    <h3 class="cuvee-name">Perle Noire, Âme Blanche</h3>
+                    <p class="cuvee-type">100% Pinot Noir – Blanc de Noirs</p>
+                    <p class="cuvee-description">Un blanc d'une intensité rare, sublimé par la pureté lumineuse du Pinot Noir.</p>
+                </div>
                 <p class="cuvee-price">149<span>€</span></p>
             </div>
             
             <div class="cuvee-card" data-animate>
-                <span class="cuvee-number">04</span>
-                <h3 class="cuvee-name">Divinité</h3>
-                <p class="cuvee-type">100% Chardonnay – Millésime – Blanc de Blancs</p>
-                <p class="cuvee-description">Champagne raffiné et intemporel, exprimant la pureté et l'excellence des grands chardonnays.</p>
+                <div class="cuvee-info">
+                    <span class="cuvee-number">04</span>
+                    <h3 class="cuvee-name">Divinité</h3>
+                    <p class="cuvee-type">100% Chardonnay – Millésime – Blanc de Blancs</p>
+                    <p class="cuvee-description">Champagne raffiné et intemporel, exprimant la pureté et l'excellence des grands chardonnays.</p>
+                </div>
                 <p class="cuvee-price">159<span>€</span></p>
             </div>
             
             <div class="cuvee-card" data-animate>
-                <span class="cuvee-number">05</span>
-                <h3 class="cuvee-name">Destinée</h3>
-                <p class="cuvee-type">Rosé de Saignée</p>
-                <p class="cuvee-description">Issu d'une macération des moûts au contact des peaux des raisins, révélant une intensité aromatique remarquable et une finesse exceptionnelle.</p>
+                <div class="cuvee-info">
+                    <span class="cuvee-number">05</span>
+                    <h3 class="cuvee-name">Destinée</h3>
+                    <p class="cuvee-type">Rosé de Saignée</p>
+                    <p class="cuvee-description">Issu d'une macération des moûts au contact des peaux des raisins, révélant une intensité aromatique remarquable et une finesse exceptionnelle.</p>
+                </div>
                 <p class="cuvee-price">169<span>€</span></p>
             </div>
             
             <div class="cuvee-card featured" data-animate>
-                <div class="cuvee-content">
+                <div class="cuvee-info">
                     <span class="cuvee-badge">Cuvée d'exception</span>
                     <span class="cuvee-number">06</span>
                     <h3 class="cuvee-name">Apothéose</h3>
                     <p class="cuvee-type">100% Pinot Meunier – Cuvée Vieilles Vignes</p>
                     <p class="cuvee-description">Un grand vin de caractère, profond et rare, offrant une puissance équilibrée par une élégance raffinée. L'aboutissement de notre quête d'excellence.</p>
-                    <p class="cuvee-price">390<span>€</span></p>
                 </div>
-                <div class="cuvee-visual">
-                    <div class="cuvee-visual-circle">
-                        <span class="cuvee-visual-text">Vieilles<br>Vignes</span>
-                    </div>
-                </div>
+                <p class="cuvee-price">390<span>€</span></p>
             </div>
         </div>
     </section>
