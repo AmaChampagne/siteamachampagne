@@ -820,6 +820,15 @@
             line-height: 1.9;
             color: var(--gray);
         }
+        
+        /* Add spacing between paragraphs in cuvee description */
+        .cuvee-description p {
+            margin-bottom: 1rem;
+        }
+        
+        .cuvee-description p:last-child {
+            margin-bottom: 0;
+        }
 
         /* Navigation overlay */
         .carte-close {
@@ -914,19 +923,33 @@
            OPTIMISATION MOBILE (Correction Titre/Bouteille)
            ============================================ */
         @media (max-width: 1024px) {
+            /* AJOUT : Correction de l'affichage 2 colonnes sur mobile */
+            .teaser {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                text-align: center;
+            }
+            .teaser-image {
+                order: -1;
+            }
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
             .carte-page-inner {
                 grid-template-columns: 1fr;
                 grid-template-rows: 0.8fr 1.2fr;
                 padding: 1.5rem;
                 gap: 1rem;
-                display: flex; /* Utilisation de flex pour un meilleur contrôle du flux */
+                display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
                 overflow-y: auto;
             }
 
             .cuvee-image-container {
-                height: 35%; /* Taille fixe pour l'image */
+                height: 35%;
                 min-height: 200px;
                 margin-bottom: 1rem;
             }
@@ -971,7 +994,6 @@
             .nav-links a { font-size: 1.2rem; }
             .menu-toggle { display: flex; }
             section { padding: 5rem 1.5rem; }
-            .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
             .carte-carousel { width: 100vw; height: 100vh; max-height: 100vh; }
             .carte-nav { bottom: 1.5rem; }
         }
@@ -1097,7 +1119,7 @@
         
         <div class="carte-carousel">
             <div class="carte-book">
-                <!-- PAGE 1 -->
+                <!-- PAGE 1: AUTHENTIC -->
                 <div class="carte-page active" data-index="0">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1108,13 +1130,16 @@
                             <h2 class="cuvee-name">Authentic</h2>
                             <p class="cuvee-tagline">La signature de la maison.</p>
                             <div class="cuvee-description">
-                                <p>Authentic incarne la justesse et la sincérité de l'expression AMA dans sa forme la plus directe et la plus pure. Un fruit blanc cristallin soutenu par une fraîcheur lumineuse.</p>
+                                <p>Authentic incarne la justesse et la sincérité de l’expression AMA dans sa forme la plus directe et la plus pure.</p>
+                                <p>Le nez offre un fruit blanc net, précis, presque cristallin, soutenu par une fraîcheur lumineuse.</p>
+                                <p>La bouche révèle un équilibre immédiat entre vivacité et texture soyeuse. Rien ne dépasse, tout s’accorde avec naturel, donnant une sensation d’évidence et de fluidité.</p>
+                                <p>La cuvée de service des établissements d’exception, polyvalente, élégante, toujours juste.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 2 -->
+                <!-- PAGE 2: HÉRITAGE -->
                 <div class="carte-page next" data-index="1">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1125,13 +1150,16 @@
                             <h2 class="cuvee-name">Héritage</h2>
                             <p class="cuvee-tagline">La tradition sublimée.</p>
                             <div class="cuvee-description">
-                                <p>Héritage incarne la continuité d'un savoir-faire maîtrisé, porté par l'équilibre et la précision du geste. Une cuvée de précision pour la haute gastronomie.</p>
+                                <p>Héritage incarne la continuité d’un savoir-faire maîtrisé, porté par l’équilibre, la subtilité et la précision du geste.</p>
+                                <p>Le nez révèle une douceur florale, une fraîcheur délicate et une texture aromatique élégante qui évoque la sérénité.</p>
+                                <p>La bouche est ronde, harmonieuse, enveloppante sans jamais peser. La matière se fond dans l’ensemble, créant une sensation d’évidence et d’équilibre durable.</p>
+                                <p>Une cuvée de précision pensée pour accompagner la haute gastronomie avec discrétion et noblesse.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 3 -->
+                <!-- PAGE 3: PERLE NOIRE / ÂME BLANCHE -->
                 <div class="carte-page next" data-index="2">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1142,13 +1170,15 @@
                             <h2 class="cuvee-name">Perle Noire</h2>
                             <p class="cuvee-tagline">Âme Blanche.</p>
                             <div class="cuvee-description">
-                                <p>Perle Noire révèle la profondeur et la structure, tandis qu'Âme Blanche dévoile la facette lumineuse et aérienne. Deux expressions d'une même signature.</p>
+                                <p>Perle Noire révèle la profondeur et la structure. Le nez évoque une maturité élégante, une trame minérale fine et une fraîcheur contenue. En bouche, la matière est posée, enveloppante sans lourdeur, avec une sensation de densité maîtrisée. La finale s’étire avec distinction, dans une élégance feutrée.</p>
+                                <p>Âme Blanche dévoile la facette lumineuse et aérienne. Le nez s’ouvre sur des notes florales fines et un fruit blanc cristallin. La bouche est fluide, soyeuse, portée par une fraîcheur élégante qui prolonge une impression de pureté et de légèreté maîtrisée.</p>
+                                <p>Deux interprétations d’une même identité, proposées selon l’atmosphère recherchée par l’établissement.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 4 -->
+                <!-- PAGE 4: MUSE -->
                 <div class="carte-page next" data-index="3">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1159,13 +1189,16 @@
                             <h2 class="cuvee-name">Muse</h2>
                             <p class="cuvee-tagline">L'inspiration du terroir.</p>
                             <div class="cuvee-description">
-                                <p>Muse exprime la singularité d'une sélection parcellaire. Une structure dense et une énergie interne qui porte le vin vers une finale saline.</p>
+                                <p>Muse exprime la singularité d’une sélection parcellaire choisie pour son identité et sa profondeur naturelle.</p>
+                                <p>Le bouquet suggère un fruit sombre délicat, une tension minérale nette et une dimension subtilement pâtissière qui apporte relief et complexité. Le vin respire la précision et la retenue.</p>
+                                <p>La bouche révèle une structure dense mais parfaitement maîtrisée. La matière est droite, construite, avec une énergie interne qui porte le vin vers une finale saline, longue et raffinée.</p>
+                                <p>Une cuvée d’auteur, conçue pour les cartes où chaque référence porte une signature et une intention.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 5 -->
+                <!-- PAGE 5: TRINITÉ -->
                 <div class="carte-page next" data-index="4">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1176,13 +1209,17 @@
                             <h2 class="cuvee-name">Trinité</h2>
                             <p class="cuvee-tagline">L'équilibre absolu.</p>
                             <div class="cuvee-description">
-                                <p>L'union maîtrisée de trois expressions complémentaires réunies dans une architecture profonde et parfaitement harmonisée.</p>
+                                <p>Trinité incarne l’union maîtrisée de trois expressions complémentaires réunies dans une architecture profonde et parfaitement harmonisée.</p>
+                                <p>Le nez révèle une complexité noble où se superposent une matière subtilement boisée, une chaleur délicate et un fruit mûr d’une grande précision. L’ensemble dégage une impression de profondeur tranquille, jamais appuyée.</p>
+                                <p>En bouche, la texture est ample, enveloppante, presque tactile. La matière s’installe avec lenteur et assurance, portée par une effervescence fine qui sculpte le vin sans le brusquer.</p>
+                                <p>La finale, longue et racée, prolonge une sensation de plénitude, laissant une empreinte élégante et persistante.</p>
+                                <p>Une cuvée pensée pour la gastronomie, là où le champagne accompagne la cuisine avec présence et distinction.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 6 -->
+                <!-- PAGE 6: APOTHÉOSE -->
                 <div class="carte-page next" data-index="5">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1193,13 +1230,16 @@
                             <h2 class="cuvee-name">Apothéose</h2>
                             <p class="cuvee-tagline">L'expression du sommet.</p>
                             <div class="cuvee-description">
-                                <p>Une minéralité crayeuse et un fruit blanc mûr. Une cuvée rare destinée aux cartes les plus pointues du monde.</p>
+                                <p>Apothéose traduit la concentration naturelle et la profondeur du vignoble, dans une lecture pure et structurée du terroir.</p>
+                                <p>Le nez suggère une minéralité crayeuse, des agrumes nobles et un fruit blanc mûr d’une grande précision.</p>
+                                <p>La bouche est ample, construite, d’une tenue remarquable. La matière s’étire avec autorité, soutenue par une tension minérale qui donne au vin sa verticalité et sa longueur.</p>
+                                <p>Une cuvée rare destinée aux cartes les plus pointues.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 7 -->
+                <!-- PAGE 7: DIVINITÉ -->
                 <div class="carte-page next" data-index="6">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1210,13 +1250,16 @@
                             <h2 class="cuvee-name">Divinité</h2>
                             <p class="cuvee-tagline">La rareté en art.</p>
                             <div class="cuvee-description">
-                                <p>Élaborée uniquement lors des années remarquables, Divinité se distingue par sa retenue et sa sophistication naturelle.</p>
+                                <p>Élaborée uniquement lors des années remarquables, Divinité se distingue par sa retenue, sa pureté et son élégance naturelle.</p>
+                                <p>Le nez mêle fleurs blanches, fraîcheur délicate et nuances beurrées subtilement intégrées.</p>
+                                <p>La bouche est fine, droite, portée par une effervescence parfaitement intégrée qui accompagne le vin sans jamais le dominer. La finale, longue et pure, laisse une impression de précision et de sophistication.</p>
+                                <p>Réservée aux grandes tables et aux moments d’exception.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- PAGE 8 -->
+                <!-- PAGE 8: ROSE VELOUR -->
                 <div class="carte-page next" data-index="7">
                     <div class="carte-page-inner">
                         <div class="cuvee-image-container">
@@ -1227,7 +1270,10 @@
                             <h2 class="cuvee-name">Rose Velour</h2>
                             <p class="cuvee-tagline">Le velours rosé.</p>
                             <div class="cuvee-description">
-                                <p>Rose Velour séduit par sa texture soyeuse et son élégance gourmande. Pensé pour les desserts les plus raffinés.</p>
+                                <p>Rose Velour séduit par sa texture soyeuse et son élégance gourmande maîtrisée.</p>
+                                <p>Le nez évoque un fruit rouge frais et délicat, porté par une finesse aromatique subtile.</p>
+                                <p>La bouche est douce, veloutée, avec une matière ronde parfaitement équilibrée par une fraîcheur discrète. La sensation tactile domine, laissant une impression de douceur élégante et persistante.</p>
+                                <p>Pensé pour les desserts raffinés et certaines cuisines audacieuses.</p>
                             </div>
                         </div>
                     </div>
