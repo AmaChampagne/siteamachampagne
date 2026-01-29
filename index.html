@@ -50,6 +50,10 @@
             letter-spacing: 0.02em;
         }
 
+        body.carte-open {
+            overflow: hidden;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
@@ -62,13 +66,6 @@
         ::-webkit-scrollbar-thumb {
             background: var(--gold);
             border-radius: 3px;
-        }
-
-        /* Typography */
-        .script-font {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-weight: 400;
         }
 
         /* Navigation */
@@ -424,6 +421,46 @@
             transform: translateX(5px);
         }
 
+        /* Nos Cuvées Section */
+        .cuvees-intro {
+            background: var(--black);
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 4rem;
+        }
+
+        .cuvees-intro-content {
+            max-width: 800px;
+        }
+
+        .cuvees-intro-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            line-height: 2;
+            color: var(--cream);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cuvees-intro-text.visible {
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .cuvees-intro .btn {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .cuvees-intro .btn.visible {
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
         /* La Maison Section */
         .maison {
             background: var(--cream);
@@ -472,10 +509,6 @@
             animation: fadeInUp 1s ease 0.4s forwards;
         }
 
-        .maison-text:last-of-type {
-            margin-bottom: 0;
-        }
-
         .maison-signature {
             margin-top: 4rem;
             padding-top: 3rem;
@@ -493,154 +526,6 @@
             font-style: italic;
             font-size: 1.3rem;
             color: var(--gold-dark);
-        }
-
-        /* Les Cuvées Section */
-        .cuvees {
-            background: var(--black);
-            padding-bottom: 10rem;
-        }
-
-        .cuvees-header {
-            text-align: center;
-            margin-bottom: 6rem;
-        }
-
-        .cuvees-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-            background: rgba(184, 163, 87, 0.1);
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .cuvee-card {
-            background: var(--black);
-            padding: 3.5rem 4rem;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: background 0.5s ease;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .cuvee-card.visible {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .cuvee-card:nth-child(1).visible { animation-delay: 0.1s; }
-        .cuvee-card:nth-child(2).visible { animation-delay: 0.2s; }
-        .cuvee-card:nth-child(3).visible { animation-delay: 0.3s; }
-        .cuvee-card:nth-child(4).visible { animation-delay: 0.4s; }
-        .cuvee-card:nth-child(5).visible { animation-delay: 0.5s; }
-        .cuvee-card:nth-child(6).visible { animation-delay: 0.6s; }
-
-        .cuvee-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--gold);
-            transform: scaleY(0);
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cuvee-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .cuvee-card:hover {
-            background: rgba(184, 163, 87, 0.03);
-        }
-
-        .cuvee-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cuvee-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--gold);
-            letter-spacing: 0.2em;
-            margin-bottom: 0.5rem;
-        }
-
-        .cuvee-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-weight: 400;
-            color: var(--cream);
-            margin-bottom: 0.5rem;
-        }
-
-        .cuvee-type {
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-        }
-
-        .cuvee-description {
-            font-size: 0.95rem;
-            line-height: 1.9;
-            color: var(--cream);
-            opacity: 0.7;
-            max-width: 550px;
-        }
-
-        .cuvee-price {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 500;
-            color: var(--cream);
-            text-align: right;
-            white-space: nowrap;
-        }
-
-        .cuvee-price span {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: var(--gray-light);
-            margin-left: 0.3rem;
-        }
-
-        /* Featured Cuvée (Apothéose) */
-        .cuvee-card.featured {
-            background: linear-gradient(135deg, rgba(184, 163, 87, 0.08) 0%, transparent 50%);
-            padding: 4rem;
-            border: 1px solid rgba(184, 163, 87, 0.2);
-        }
-
-        .cuvee-card.featured .cuvee-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border: 1px solid var(--gold);
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            width: fit-content;
-        }
-
-        .cuvee-card.featured .cuvee-name {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--gold);
-        }
-
-        .cuvee-card.featured .cuvee-price {
-            font-size: 2.8rem;
         }
 
         /* Contact Section */
@@ -829,6 +714,311 @@
             opacity: 0.6;
         }
 
+        /* ============================================
+           CARTE DES VINS - OVERLAY
+           ============================================ */
+        .carte-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .carte-overlay.active {
+            pointer-events: auto;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .carte-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .carte-overlay.active .carte-backdrop {
+            opacity: 1;
+        }
+
+        /* Book Animation Container */
+        .carte-book {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 1400px;
+            height: 85vh;
+            perspective: 2000px;
+        }
+
+        .carte-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid var(--gold);
+            transform-origin: right center;
+            transform: rotateY(0deg);
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .carte-cover::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(184, 163, 87, 0.3);
+            pointer-events: none;
+        }
+
+        .carte-overlay.active .carte-cover {
+            transform: rotateY(-160deg);
+        }
+
+        .carte-cover-logo {
+            width: 150px;
+            margin-bottom: 2rem;
+        }
+
+        .carte-cover-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        .carte-cover-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin-top: 1.5rem;
+        }
+
+        /* Carte Content */
+        .carte-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--cream-dark) 0%, var(--cream) 50%, var(--cream) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease 0.8s;
+            overflow: hidden;
+        }
+
+        .carte-overlay.active .carte-content {
+            opacity: 1;
+        }
+
+        .carte-inner {
+            height: 100%;
+            overflow-y: auto;
+            padding: 4rem;
+        }
+
+        .carte-inner::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .carte-inner::-webkit-scrollbar-track {
+            background: var(--cream-dark);
+        }
+
+        .carte-inner::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .carte-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(184, 163, 87, 0.3);
+        }
+
+        .carte-header-logo {
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .carte-header-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: var(--gold-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .carte-header-subtitle {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+
+        /* Cuvée Items */
+        .cuvee-item {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 4rem;
+            margin-bottom: 5rem;
+            padding-bottom: 5rem;
+            border-bottom: 1px solid rgba(184, 163, 87, 0.2);
+            align-items: center;
+        }
+
+        .cuvee-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .cuvee-item:nth-child(even) {
+            grid-template-columns: 1fr 350px;
+        }
+
+        .cuvee-item:nth-child(even) .cuvee-image {
+            order: 2;
+        }
+
+        .cuvee-item:nth-child(even) .cuvee-details {
+            order: 1;
+            text-align: right;
+        }
+
+        .cuvee-image {
+            position: relative;
+        }
+
+        .cuvee-image img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+            transition: transform 0.5s ease;
+        }
+
+        .cuvee-item:hover .cuvee-image img {
+            transform: scale(1.02);
+        }
+
+        .cuvee-details {
+            color: var(--black);
+        }
+
+        .cuvee-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .cuvee-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--black);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .cuvee-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--gold-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .cuvee-description {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--gray);
+        }
+
+        .cuvee-description p {
+            margin-bottom: 1rem;
+        }
+
+        .cuvee-description p:last-child {
+            margin-bottom: 0;
+            font-style: italic;
+            color: var(--gold-dark);
+        }
+
+        /* Close Button */
+        .carte-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--black);
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease 1s, transform 0.3s ease, background 0.3s ease;
+        }
+
+        .carte-overlay.active .carte-close {
+            opacity: 1;
+        }
+
+        .carte-close:hover {
+            background: var(--gold);
+        }
+
+        .carte-close::before,
+        .carte-close::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 1px;
+            background: var(--gold);
+            transition: background 0.3s ease;
+        }
+
+        .carte-close:hover::before,
+        .carte-close:hover::after {
+            background: var(--black);
+        }
+
+        .carte-close::before {
+            transform: rotate(45deg);
+        }
+
+        .carte-close::after {
+            transform: rotate(-45deg);
+        }
+
         /* Animations */
         @keyframes fadeInDown {
             from {
@@ -902,6 +1092,17 @@
         }
 
         /* Responsive */
+        @media (max-width: 1200px) {
+            .cuvee-item {
+                grid-template-columns: 280px 1fr;
+                gap: 3rem;
+            }
+
+            .cuvee-item:nth-child(even) {
+                grid-template-columns: 1fr 280px;
+            }
+        }
+
         @media (max-width: 1024px) {
             section {
                 padding: 6rem 3rem;
@@ -923,6 +1124,45 @@
             .contact-wrapper {
                 grid-template-columns: 1fr;
                 gap: 4rem;
+            }
+
+            .cuvee-item,
+            .cuvee-item:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .cuvee-item:nth-child(even) .cuvee-image,
+            .cuvee-item:nth-child(even) .cuvee-details {
+                order: unset;
+            }
+
+            .cuvee-item:nth-child(even) .cuvee-details {
+                text-align: center;
+            }
+
+            .cuvee-image img {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .carte-book {
+                width: 95vw;
+                height: 90vh;
+            }
+
+            .carte-cover {
+                display: none;
+            }
+
+            .carte-content {
+                opacity: 1;
+                transition: none;
+            }
+
+            .carte-inner {
+                padding: 2rem;
             }
         }
 
@@ -991,18 +1231,8 @@
                 padding: 5rem 1.5rem;
             }
 
-            .cuvee-card {
-                padding: 2.5rem 2rem;
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .cuvee-price {
-                text-align: left;
-            }
-
-            .cuvee-card.featured {
-                padding: 2.5rem 2rem;
+            .cuvees-intro {
+                padding: 5rem 2rem;
             }
 
             .contact-degustation {
@@ -1011,6 +1241,17 @@
 
             .hero-logo {
                 width: min(280px, 70vw);
+            }
+
+            .cuvee-image img {
+                max-width: 250px;
+            }
+
+            .carte-close {
+                top: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -1057,7 +1298,7 @@
         <div class="teaser-content">
             <h2 class="section-title" data-animate>L'excellence,<br>sans compromis</h2>
             <p class="teaser-text" data-animate>
-                Six cuvées d'exception, nées d'une sélection rigoureuse et d'un savoir-faire transmis. 
+                Huit cuvées d'exception, nées d'une sélection rigoureuse et d'un savoir-faire transmis. 
                 Chaque bouteille porte l'empreinte d'un terroir respecté et d'une patience qui ne se négocie pas.
             </p>
             <div class="teaser-cta" data-animate>
@@ -1097,74 +1338,18 @@
         </div>
     </section>
 
-    <!-- Les Cuvées Section -->
-    <section class="cuvees" id="cuvees">
-        <div class="cuvees-header">
+    <!-- Nos Cuvées Section -->
+    <section class="cuvees-intro" id="cuvees">
+        <div class="cuvees-intro-content">
             <span class="section-subtitle" data-animate>Collection</span>
-            <h2 class="section-title" data-animate>Les Cuvées</h2>
-        </div>
-        
-        <div class="cuvees-grid">
-            <div class="cuvee-card" data-animate>
-                <div class="cuvee-info">
-                    <span class="cuvee-number">01</span>
-                    <h3 class="cuvee-name">La Rosée Royale</h3>
-                    <p class="cuvee-type">Perle de Rosé – Pinot Meunier & Vin Rouge</p>
-                    <p class="cuvee-description">Un rosé chic et subtil, mêlant fraîcheur et noblesse, pensé pour séduire autant les hommes que les femmes.</p>
-                </div>
-                <p class="cuvee-price">210<span>€</span></p>
-            </div>
-            
-            <div class="cuvee-card" data-animate>
-                <div class="cuvee-info">
-                    <span class="cuvee-number">02</span>
-                    <h3 class="cuvee-name">Héritage Brut Réserve</h3>
-                    <p class="cuvee-type">Brut</p>
-                    <p class="cuvee-description">Brut trésor, aérien et harmonieux, il incarne l'élégance intemporelle et la tradition des grandes maisons.</p>
-                </div>
-                <p class="cuvee-price">180<span>€</span></p>
-            </div>
-            
-            <div class="cuvee-card" data-animate>
-                <div class="cuvee-info">
-                    <span class="cuvee-number">03</span>
-                    <h3 class="cuvee-name">Perle Noire, Âme Blanche</h3>
-                    <p class="cuvee-type">100% Pinot Noir – Blanc de Noirs</p>
-                    <p class="cuvee-description">Un blanc d'une intensité rare, sublimé par la pureté lumineuse du Pinot Noir.</p>
-                </div>
-                <p class="cuvee-price">295<span>€</span></p>
-            </div>
-            
-            <div class="cuvee-card" data-animate>
-                <div class="cuvee-info">
-                    <span class="cuvee-number">04</span>
-                    <h3 class="cuvee-name">Divinité</h3>
-                    <p class="cuvee-type">100% Chardonnay – Millésime – Blanc de Blancs</p>
-                    <p class="cuvee-description">Champagne raffiné et intemporel, exprimant la pureté et l'excellence des grands chardonnays.</p>
-                </div>
-                <p class="cuvee-price">260<span>€</span></p>
-            </div>
-            
-            <div class="cuvee-card" data-animate>
-                <div class="cuvee-info">
-                    <span class="cuvee-number">05</span>
-                    <h3 class="cuvee-name">Destinée</h3>
-                    <p class="cuvee-type">Rosé de Saignée</p>
-                    <p class="cuvee-description">Issu d'une macération des moûts au contact des peaux des raisins, révélant une intensité aromatique remarquable et une finesse exceptionnelle.</p>
-                </div>
-                <p class="cuvee-price">360<span>€</span></p>
-            </div>
-            
-            <div class="cuvee-card featured" data-animate>
-                <div class="cuvee-info">
-                    <span class="cuvee-badge">Cuvée d'exception</span>
-                    <span class="cuvee-number">06</span>
-                    <h3 class="cuvee-name">Apothéose</h3>
-                    <p class="cuvee-type">100% Pinot Meunier – Cuvée Vieilles Vignes</p>
-                    <p class="cuvee-description">Un grand vin de caractère, profond et rare, offrant une puissance équilibrée par une élégance raffinée. L'aboutissement de notre quête d'excellence.</p>
-                </div>
-                <p class="cuvee-price">580<span>€</span></p>
-            </div>
+            <h2 class="section-title" data-animate>Nos Cuvées</h2>
+            <p class="cuvees-intro-text" data-animate>
+                Chaque cuvée AMA est le fruit d'une sélection rigoureuse, d'un dialogue constant avec le terroir et d'une patience qui ne se négocie pas. Huit expressions singulières, pensées pour les tables d'exception et les palais exigeants.
+            </p>
+            <button class="btn" data-animate id="openCarte">
+                Voir la carte
+                <span class="btn-arrow">→</span>
+            </button>
         </div>
     </section>
 
@@ -1214,8 +1399,174 @@
     <footer>
         <img src="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true" alt="AMA Champagne" class="footer-logo">
         <p class="footer-text">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
-        <p class="footer-legal">© 2024 AMA Champagne. Tous droits réservés.</p>
+        <p class="footer-legal">© 2025 AMA Champagne. Tous droits réservés.</p>
     </footer>
+
+    <!-- ============================================
+         CARTE DES VINS OVERLAY
+         ============================================ -->
+    <div class="carte-overlay" id="carteOverlay">
+        <div class="carte-backdrop"></div>
+        
+        <button class="carte-close" id="closeCarte"></button>
+        
+        <div class="carte-book">
+            <!-- Cover (animated) -->
+            <div class="carte-cover">
+                <img src="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true" alt="AMA" class="carte-cover-logo">
+                <h2 class="carte-cover-title">La Carte</h2>
+                <div class="carte-cover-line"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="carte-content">
+                <div class="carte-inner">
+                    <header class="carte-header">
+                        <img src="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true" alt="AMA Champagne" class="carte-header-logo">
+                        <h1 class="carte-header-title">Nos Cuvées</h1>
+                        <p class="carte-header-subtitle">Collection AMA Champagne</p>
+                    </header>
+
+                    <!-- AUTHENTIC -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/authentic/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20.png?raw=true" alt="AMA Authentic">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 01</span>
+                            <h2 class="cuvee-name">Authentic</h2>
+                            <p class="cuvee-tagline">La signature de la maison.</p>
+                            <div class="cuvee-description">
+                                <p>Authentic incarne la justesse et la sincérité de l'expression AMA.</p>
+                                <p>Le nez offre un fruit blanc net et précis porté par une fraîcheur cristalline. La bouche révèle un équilibre immédiat entre vivacité et texture soyeuse. L'ensemble est fluide, élégant, évident.</p>
+                                <p>La cuvée de service des établissements d'exception.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- HÉRITAGE -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/heritage/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(1).png?raw=true" alt="AMA Héritage">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 02</span>
+                            <h2 class="cuvee-name">Héritage</h2>
+                            <p class="cuvee-tagline">La tradition sublimée.</p>
+                            <div class="cuvee-description">
+                                <p>Héritage incarne la continuité d'un savoir-faire maîtrisé, porté par l'équilibre et la finesse.</p>
+                                <p>Le nez révèle une douceur florale, une fraîcheur délicate et une texture aromatique élégante. La bouche est ronde, harmonieuse, enveloppante sans lourdeur. Tout s'accorde avec naturel.</p>
+                                <p>Une cuvée de précision pensée pour accompagner la haute gastronomie avec discrétion et noblesse.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PERLE NOIRE, ÂME BLANCHE -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/perle-noire-ame-blanche/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(2).png?raw=true" alt="AMA Perle Noire, Âme Blanche">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 03</span>
+                            <h2 class="cuvee-name">Perle Noire, Âme Blanche</h2>
+                            <p class="cuvee-tagline">Deux expressions d'une même signature.</p>
+                            <div class="cuvee-description">
+                                <p>Perle Noire révèle la profondeur et la structure. Le nez évoque une maturité élégante, une trame minérale fine et une fraîcheur contenue. La bouche est posée, précise, avec une matière enveloppante et une finale distinguée, toute en retenue.</p>
+                                <p>Âme Blanche dévoile la facette lumineuse et aérienne. Le nez s'ouvre sur des notes florales fines et un fruit blanc cristallin. La bouche est soyeuse, fluide, portée par une fraîcheur élégante qui prolonge une sensation de pureté maîtrisée.</p>
+                                <p>Deux interprétations d'une même identité, choisies selon l'atmosphère recherchée par l'établissement.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- MUSE -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/Muse/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(4).png?raw=true" alt="AMA Muse">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 04</span>
+                            <h2 class="cuvee-name">Muse</h2>
+                            <p class="cuvee-tagline">L'inspiration du terroir.</p>
+                            <div class="cuvee-description">
+                                <p>Muse exprime la singularité d'une sélection parcellaire avec précision et caractère.</p>
+                                <p>Le bouquet suggère un fruit noir délicat, une tension minérale nette et une dimension subtilement pâtissière. La bouche est structurée, dense mais parfaitement maîtrisée. La matière est droite, signée par une minéralité saline qui prolonge la finale.</p>
+                                <p>Une cuvée d'auteur, destinée aux cartes où chaque référence porte une intention.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- TRINITÉ -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/trinit-/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(6).png?raw=true" alt="AMA Trinité">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 05</span>
+                            <h2 class="cuvee-name">Trinité</h2>
+                            <p class="cuvee-tagline">L'équilibre absolu.</p>
+                            <div class="cuvee-description">
+                                <p>Trinité incarne l'union maîtrisée de trois expressions complémentaires réunies dans une architecture profonde et harmonieuse.</p>
+                                <p>Le nez révèle une complexité noble, entre matière subtilement boisée, chaleur maîtrisée et fruit mûr parfaitement intégré. La bouche est ample, enveloppante, presque tactile. La texture se déploie avec sérénité, portée par une effervescence d'une grande finesse.</p>
+                                <p>La finale, longue et racée, laisse une sensation de plénitude et de noblesse. Une cuvée pensée pour la gastronomie et les tables où le champagne dialogue avec la cuisine.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- APOTHÉOSE -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/apoth-ose/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(5).png?raw=true" alt="AMA Apothéose">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 06</span>
+                            <h2 class="cuvee-name">Apothéose</h2>
+                            <p class="cuvee-tagline">L'expression du sommet.</p>
+                            <div class="cuvee-description">
+                                <p>Apothéose traduit la concentration naturelle et la profondeur du vignoble.</p>
+                                <p>Le nez suggère une minéralité crayeuse, des agrumes nobles et un fruit blanc mûr parfaitement intégré. La bouche est ample, structurée, d'une grande tenue. La finale persistante évoque la pierre chaude et la pureté du sol.</p>
+                                <p>Une cuvée rare destinée aux cartes les plus pointues.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- DIVINITÉ -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/divinit-/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(7).png?raw=true" alt="AMA Divinité">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 07</span>
+                            <h2 class="cuvee-name">Divinité</h2>
+                            <p class="cuvee-tagline">La rareté élevée au rang d'art.</p>
+                            <div class="cuvee-description">
+                                <p>Élaborée uniquement lors des années remarquables, Divinité s'impose par sa retenue et son élégance naturelle.</p>
+                                <p>Le nez mêle fleurs blanches, fraîcheur délicate et notes subtilement beurrées. La bouche est fine, droite, soutenue par une effervescence parfaitement intégrée. La finale est longue, pure et sophistiquée.</p>
+                                <p>Réservée aux grandes tables et aux moments d'exception.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ROSE VELOUR -->
+                    <article class="cuvee-item">
+                        <div class="cuvee-image">
+                            <img src="https://github.com/Allan77bot/rose-velour/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(8).png?raw=true" alt="AMA Rose Velour">
+                        </div>
+                        <div class="cuvee-details">
+                            <span class="cuvee-number">— 08</span>
+                            <h2 class="cuvee-name">Rose Velour</h2>
+                            <p class="cuvee-tagline">Le velours en version rosé.</p>
+                            <div class="cuvee-description">
+                                <p>Rose Velour séduit par sa texture soyeuse et son élégance gourmande.</p>
+                                <p>Le nez évoque un fruit rouge frais et délicat porté par une finesse aromatique subtile. La bouche est douce, veloutée, parfaitement équilibrée. La finale laisse une sensation de douceur maîtrisée.</p>
+                                <p>Pensé pour les desserts raffinés et certaines cuisines audacieuses.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Navigation scroll effect
@@ -1276,6 +1627,35 @@
                     });
                 }
             });
+        });
+
+        // Carte des vins
+        const carteOverlay = document.getElementById('carteOverlay');
+        const openCarteBtn = document.getElementById('openCarte');
+        const closeCarteBtn = document.getElementById('closeCarte');
+
+        openCarteBtn.addEventListener('click', () => {
+            carteOverlay.classList.add('active');
+            document.body.classList.add('carte-open');
+        });
+
+        closeCarteBtn.addEventListener('click', () => {
+            carteOverlay.classList.remove('active');
+            document.body.classList.remove('carte-open');
+        });
+
+        // Close carte on backdrop click
+        carteOverlay.querySelector('.carte-backdrop').addEventListener('click', () => {
+            carteOverlay.classList.remove('active');
+            document.body.classList.remove('carte-open');
+        });
+
+        // Close carte on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && carteOverlay.classList.contains('active')) {
+                carteOverlay.classList.remove('active');
+                document.body.classList.remove('carte-open');
+            }
         });
     </script>
 </body>
