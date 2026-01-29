@@ -773,13 +773,14 @@
             border: 1px solid var(--gold);
             transform-origin: right center;
             transform: rotateY(0deg);
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease 1s, visibility 0.3s ease 1s;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 10;
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            backface-visibility: hidden;
         }
 
         .carte-cover::before {
@@ -794,7 +795,9 @@
         }
 
         .carte-overlay.active .carte-cover {
-            transform: rotateY(-160deg);
+            transform: rotateY(-180deg);
+            opacity: 0;
+            visibility: hidden;
         }
 
         .carte-cover-logo {
@@ -1243,8 +1246,61 @@
                 width: min(280px, 70vw);
             }
 
+            /* Mobile carte styles */
+            .carte-book {
+                width: 100vw;
+                height: 100vh;
+                max-width: 100%;
+            }
+
+            .carte-cover {
+                display: none;
+            }
+
+            .carte-content {
+                opacity: 1;
+                transition: none;
+                border-radius: 0;
+            }
+
+            .carte-inner {
+                padding: 1.5rem;
+                padding-top: 4rem;
+            }
+
+            .carte-header {
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .carte-header-logo {
+                height: 60px;
+            }
+
+            .carte-header-title {
+                font-size: 1.8rem;
+            }
+
+            .cuvee-item {
+                margin-bottom: 3rem;
+                padding-bottom: 3rem;
+            }
+
             .cuvee-image img {
-                max-width: 250px;
+                max-width: 220px;
+            }
+
+            .cuvee-name {
+                font-size: 1.8rem;
+            }
+
+            .cuvee-tagline {
+                font-size: 1.1rem;
+            }
+
+            .cuvee-description {
+                font-size: 0.9rem;
+                line-height: 1.8;
             }
 
             .carte-close {
@@ -1252,6 +1308,74 @@
                 right: 1rem;
                 width: 40px;
                 height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .teaser-text {
+                font-size: 1rem;
+            }
+
+            .maison-intro {
+                font-size: 1.4rem;
+            }
+
+            .maison-text {
+                font-size: 0.95rem;
+            }
+
+            .cuvees-intro-text {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+                font-size: 0.75rem;
+            }
+
+            .carte-inner {
+                padding: 1rem;
+                padding-top: 3.5rem;
+            }
+
+            .cuvee-image img {
+                max-width: 180px;
+            }
+
+            .cuvee-name {
+                font-size: 1.5rem;
+            }
+
+            .cuvee-number {
+                font-size: 0.8rem;
+            }
+
+            .cuvee-description p {
+                margin-bottom: 0.8rem;
+            }
+
+            .contact-intro {
+                font-size: 1.2rem;
+            }
+
+            .degustation-title {
+                font-size: 1.6rem;
+            }
+
+            .degustation-text {
+                font-size: 0.9rem;
             }
         }
     </style>
