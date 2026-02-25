@@ -6,32 +6,34 @@
     <meta name="description" content="AMA Champagne - Le champagne dans sa plus pure expression. Maison de champagne premium née de l'exigence et de la quête d'excellence.">
     <title>AMA Champagne — Le champagne dans sa plus pure expression</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
     
     <style>
+        /* ============================================
+           CSS VARIABLES & RESET
+           ============================================ */
         :root {
             --gold: #b8a357;
             --gold-light: #d4c078;
             --gold-dark: #9a8847;
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --cream: #f9f7f3;
-            --cream-dark: #ede9e0;
+            --gold-glow: rgba(184, 163, 87, 0.15);
+            --gold-subtle: rgba(184, 163, 87, 0.06);
+            --black: #080808;
+            --black-light: #121212;
+            --black-mid: #1a1a1a;
+            --cream: #f5f2eb;
+            --cream-dark: #e8e3d8;
             --gray: #6b6b6b;
             --gray-light: #9a9a9a;
+            --gray-dark: #3a3a3a;
+            --vine-green: #2a3a1f;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
             scroll-behavior: smooth;
@@ -45,36 +47,40 @@
             background: var(--black);
             color: var(--cream);
             width: 100%;
-            overflow-x: hidden; /* Empêche le scroll horizontal et la colonne noire */
+            overflow-x: hidden;
             letter-spacing: 0.02em;
+            cursor: default;
         }
 
-        body.carte-open {
-            overflow: hidden;
+        body.carte-open { overflow: hidden; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+        /* ============================================
+           GOLD PARTICLE CANVAS
+           ============================================ */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--black);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 3px;
-        }
-
-        /* Navigation */
+        /* ============================================
+           NAVIGATION
+           ============================================ */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 2rem 4rem;
+            padding: 2rem 5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -82,22 +88,21 @@
         }
 
         nav.scrolled {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 1.2rem 4rem;
-            border-bottom: 1px solid rgba(184, 163, 87, 0.1);
+            background: rgba(8, 8, 8, 0.92);
+            backdrop-filter: blur(30px);
+            padding: 1rem 5rem;
+            border-bottom: 1px solid rgba(184, 163, 87, 0.08);
         }
 
         .nav-logo {
-            height: 70px;
+            height: 65px;
             opacity: 0;
             transform: translateY(-20px);
             animation: fadeInDown 1s ease 0.5s forwards;
+            transition: height 0.4s ease;
         }
 
-        nav.scrolled .nav-logo {
-            height: 55px;
-        }
+        nav.scrolled .nav-logo { height: 50px; }
 
         .nav-links {
             display: flex;
@@ -109,17 +114,17 @@
             opacity: 0;
             transform: translateY(-20px);
         }
-
         .nav-links li:nth-child(1) { animation: fadeInDown 1s ease 0.6s forwards; }
         .nav-links li:nth-child(2) { animation: fadeInDown 1s ease 0.7s forwards; }
         .nav-links li:nth-child(3) { animation: fadeInDown 1s ease 0.8s forwards; }
+        .nav-links li:nth-child(4) { animation: fadeInDown 1s ease 0.9s forwards; }
 
         .nav-links a {
             color: var(--cream);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 400;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             position: relative;
             padding: 0.5rem 0;
@@ -130,22 +135,17 @@
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 1px;
             background: var(--gold);
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Mobile Menu */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -153,7 +153,6 @@
             cursor: pointer;
             z-index: 1001;
         }
-
         .menu-toggle span {
             width: 28px;
             height: 1px;
@@ -161,7 +160,9 @@
             transition: all 0.3s ease;
         }
 
-        /* Hero Section */
+        /* ============================================
+           HERO
+           ============================================ */
         .hero {
             height: 100vh;
             position: relative;
@@ -174,25 +175,22 @@
 
         .hero-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
             z-index: 0;
         }
 
         .hero-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: linear-gradient(
                 to bottom,
-                rgba(10, 10, 10, 0.4) 0%,
-                rgba(10, 10, 10, 0.2) 50%,
-                rgba(10, 10, 10, 0.6) 100%
+                rgba(8, 8, 8, 0.5) 0%,
+                rgba(8, 8, 8, 0.15) 40%,
+                rgba(8, 8, 8, 0.15) 60%,
+                rgba(8, 8, 8, 0.7) 100%
             );
             z-index: 1;
         }
@@ -205,23 +203,23 @@
         }
 
         .hero-logo {
-            width: min(380px, 75vw);
+            width: min(400px, 70vw);
             margin-bottom: 3rem;
             opacity: 0;
-            transform: scale(0.9);
-            animation: heroLogoIn 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+            transform: scale(0.85);
+            animation: heroLogoIn 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
         }
 
         .hero-tagline {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(1.5rem, 4vw, 2.8rem);
+            font-size: clamp(1.4rem, 3.5vw, 2.6rem);
             font-weight: 300;
             color: var(--cream);
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 1.2s ease 1s forwards;
-            letter-spacing: 0.05em;
+            animation: fadeInUp 1.2s ease 1.2s forwards;
+            letter-spacing: 0.06em;
         }
 
         .hero-line {
@@ -231,7 +229,7 @@
             margin: 2.5rem auto 0;
             opacity: 0;
             transform: scaleX(0);
-            animation: lineExpand 1s ease 1.4s forwards;
+            animation: lineExpand 1s ease 1.6s forwards;
         }
 
         .scroll-indicator {
@@ -245,12 +243,12 @@
             align-items: center;
             gap: 1rem;
             opacity: 0;
-            animation: fadeIn 1s ease 2s forwards;
+            animation: fadeIn 1s ease 2.2s forwards;
         }
 
         .scroll-indicator span {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
             color: var(--gold);
         }
@@ -259,51 +257,68 @@
             width: 1px;
             height: 50px;
             background: linear-gradient(to bottom, var(--gold), transparent);
-            animation: scrollPulse 2s ease-in-out infinite;
+            animation: scrollPulse 2.5s ease-in-out infinite;
         }
 
-        /* Sections Common */
+        /* ============================================
+           VINE DECORATIONS
+           ============================================ */
+        .maison {
+            position: relative;
+        }
+
+        /* ============================================
+           COMMON SECTION STYLES
+           ============================================ */
         section {
-            padding: 8rem 4rem;
+            padding: 8rem 5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 5.5vw, 4.5rem);
             font-weight: 300;
             color: var(--gold);
             margin-bottom: 1rem;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .section-title.visible {
-            animation: fadeInUp 1s ease forwards;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-subtitle {
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--gray-light);
-            margin-bottom: 4rem;
+            color: var(--gold);
             opacity: 0;
+            margin-bottom: 4rem;
             transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
         }
 
         .section-subtitle.visible {
-            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0.6;
+            transform: translateY(0);
         }
 
-        /* Teaser Section */
+        /* ============================================
+           TEASER SECTION
+           ============================================ */
         .teaser {
             background: var(--black);
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 6rem;
             align-items: center;
-            min-height: 80vh;
+            min-height: 90vh;
         }
 
         .teaser-image {
@@ -314,70 +329,75 @@
         }
 
         .teaser-bottle {
-            max-height: 70vh;
+            max-height: 75vh;
             width: auto;
             opacity: 0;
-            transform: translateY(60px);
-            filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.5));
+            transform: translateY(80px);
+            filter: drop-shadow(0 40px 100px rgba(0, 0, 0, 0.6));
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .teaser-bottle.visible {
-            animation: bottleFloat 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards, bottleHover 4s ease-in-out 1.2s infinite;
+            opacity: 1;
+            transform: translateY(0);
+            animation: bottleHover 5s ease-in-out 1.2s infinite;
         }
 
         @keyframes bottleHover {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(1deg); }
+            50% { transform: translateY(-12px) rotate(0.5deg); }
         }
 
         .teaser-glow {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(184, 163, 87, 0.15) 0%, transparent 70%);
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(184, 163, 87, 0.12) 0%, transparent 70%);
             border-radius: 50%;
-            filter: blur(60px);
+            filter: blur(80px);
             z-index: 0;
         }
 
-        .teaser-content { padding: 2rem; }
+        .teaser-content { padding: 2rem 0; }
 
         .teaser-text {
-            font-size: 1.1rem;
-            line-height: 2;
+            font-size: 1.05rem;
+            line-height: 2.1;
             color: var(--cream);
             max-width: 500px;
             opacity: 0;
             transform: translateY(30px);
+            transition: all 1s ease 0.3s;
         }
-
-        .teaser-text.visible { animation: fadeInUp 1s ease 0.3s forwards; }
+        .teaser-text.visible { opacity: 0.85; transform: translateY(0); }
 
         .teaser-cta {
             margin-top: 3rem;
             opacity: 0;
             transform: translateY(20px);
+            transition: all 1s ease 0.5s;
         }
+        .teaser-cta.visible { opacity: 1; transform: translateY(0); }
 
-        .teaser-cta.visible { animation: fadeInUp 1s ease 0.5s forwards; }
-
-        /* Buttons */
+        /* ============================================
+           BUTTONS
+           ============================================ */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 1rem;
             padding: 1rem 2.5rem;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 400;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             text-decoration: none;
             border: 1px solid var(--gold);
             color: var(--gold);
             background: transparent;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -385,24 +405,235 @@
         .btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: var(--gold);
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: -1;
         }
 
         .btn:hover { color: var(--black); }
-
         .btn:hover::before { left: 0; }
-
         .btn-arrow { transition: transform 0.3s ease; }
-
         .btn:hover .btn-arrow { transform: translateX(5px); }
 
-        /* Nos Cuvées Section */
+        /* ============================================
+           LA MAISON
+           ============================================ */
+        .maison {
+            background: var(--black);
+            color: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-top: 1px solid rgba(184, 163, 87, 0.06);
+        }
+
+        .maison-content { max-width: 800px; margin: 0 auto; }
+
+        .maison-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--cream);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.3s;
+        }
+        .maison-intro.visible { opacity: 0.9; transform: translateY(0); }
+
+        .maison-text {
+            font-size: 1rem;
+            line-height: 2.2;
+            color: var(--gray-light);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.4s;
+        }
+        .maison-text.visible { opacity: 1; transform: translateY(0); }
+
+        .maison-signature {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(184, 163, 87, 0.15);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease 0.6s;
+        }
+        .maison-signature.visible { opacity: 1; transform: translateY(0); }
+
+        .maison-signature p {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        /* ============================================
+           SAVOIR-FAIRE (NEW)
+           ============================================ */
+        .savoir-faire {
+            background: var(--black);
+            padding: 10rem 5rem;
+            overflow: hidden;
+        }
+
+        .sf-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .sf-timeline {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .sf-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gold), var(--gold), transparent);
+            opacity: 0.3;
+        }
+
+        .sf-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 8rem;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sf-step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sf-step:nth-child(even) .sf-step-visual { order: 2; }
+        .sf-step:nth-child(even) .sf-step-content { order: 1; text-align: right; }
+
+        .sf-step-visual {
+            position: relative;
+            height: 350px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .sf-step-visual video,
+        .sf-step-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .sf-step-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(184, 163, 87, 0.15);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .sf-step-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 300;
+            color: var(--gold);
+            opacity: 0.2;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .sf-step-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .sf-step-text {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--gray-light);
+        }
+
+        /* ============================================
+           GALERIE IMMERSIVE (NEW)
+           ============================================ */
+        .galerie {
+            background: var(--black);
+            padding: 10rem 0;
+            overflow: hidden;
+        }
+
+        .galerie-header {
+            text-align: center;
+            padding: 0 5rem;
+            margin-bottom: 5rem;
+        }
+
+        .galerie-strip {
+            display: flex;
+            gap: 1.5rem;
+            animation: galleryScroll 40s linear infinite;
+            width: max-content;
+        }
+
+        .galerie-strip:hover { animation-play-state: paused; }
+
+        @keyframes galleryScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .galerie-item {
+            flex-shrink: 0;
+            width: 400px;
+            height: 280px;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .galerie-item video,
+        .galerie-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .galerie-item:hover video,
+        .galerie-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .galerie-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(184, 163, 87, 0.1);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        /* ============================================
+           NOS CUVÉES INTRO
+           ============================================ */
         .cuvees-intro {
             background: var(--black);
             min-height: 80vh;
@@ -411,98 +642,42 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 8rem 4rem;
+            padding: 10rem 5rem;
         }
 
-        .cuvees-intro-content { max-width: 800px; }
+        .cuvees-intro-content { max-width: 750px; }
 
         .cuvees-intro-text {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            font-size: clamp(1.2rem, 2.3vw, 1.7rem);
             font-weight: 300;
             line-height: 2;
             color: var(--cream);
             margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(30px);
+            transition: all 1s ease 0.3s;
         }
-
-        .cuvees-intro-text.visible { animation: fadeInUp 1s ease 0.3s forwards; }
+        .cuvees-intro-text.visible { opacity: 0.85; transform: translateY(0); }
 
         .cuvees-intro .btn {
             opacity: 0;
             transform: translateY(20px);
+            transition: all 1s ease 0.5s;
         }
+        .cuvees-intro .btn.visible { opacity: 1; transform: translateY(0); }
 
-        .cuvees-intro .btn.visible { animation: fadeInUp 1s ease 0.5s forwards; }
-
-        /* La Maison Section */
-        .maison {
-            background: var(--cream);
-            color: var(--black);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .maison-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .maison .section-title { color: var(--gold-dark); }
-
-        .maison-intro {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-weight: 400;
-            font-style: italic;
-            line-height: 1.6;
-            color: var(--black-light);
-            margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .maison-intro.visible { animation: fadeInUp 1s ease 0.3s forwards; }
-
-        .maison-text {
-            font-size: 1.05rem;
-            line-height: 2.2;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .maison-text.visible { animation: fadeInUp 1s ease 0.4s forwards; }
-
-        .maison-signature {
-            margin-top: 4rem;
-            padding-top: 3rem;
-            border-top: 1px solid rgba(184, 163, 87, 0.3);
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .maison-signature.visible { animation: fadeInUp 1s ease 0.6s forwards; }
-
-        .maison-signature p {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1.3rem;
-            color: var(--gold-dark);
-        }
-
-        /* Contact Section */
+        /* ============================================
+           CONTACT
+           ============================================ */
         .contact {
-            background: var(--cream);
-            color: var(--black);
+            background: var(--black);
+            color: var(--cream);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            border-top: 1px solid rgba(184, 163, 87, 0.06);
         }
 
         .contact-wrapper {
@@ -514,19 +689,17 @@
             width: 100%;
         }
 
-        .contact .section-title { color: var(--gold-dark); }
-
         .contact-intro {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.5rem;
-            color: var(--gray);
+            font-size: 1.4rem;
+            color: var(--gray-light);
             margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
+            transition: all 1s ease 0.3s;
         }
-
-        .contact-intro.visible { animation: fadeInUp 1s ease 0.3s forwards; }
+        .contact-intro.visible { opacity: 1; transform: translateY(0); }
 
         .contact-form {
             display: flex;
@@ -534,9 +707,9 @@
             gap: 2rem;
             opacity: 0;
             transform: translateY(30px);
+            transition: all 1s ease 0.4s;
         }
-
-        .contact-form.visible { animation: fadeInUp 1s ease 0.4s forwards; }
+        .contact-form.visible { opacity: 1; transform: translateY(0); }
 
         .form-group { position: relative; }
 
@@ -544,25 +717,26 @@
             width: 100%;
             padding: 1.2rem 0;
             font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 300;
-            color: var(--black);
+            color: var(--cream);
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(107, 107, 107, 0.3);
+            border-bottom: 1px solid rgba(184, 163, 87, 0.15);
             outline: none;
             transition: border-color 0.3s ease;
         }
 
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--gold);
+        }
 
         .form-group label {
             position: absolute;
-            top: 1.2rem;
-            left: 0;
-            font-size: 0.85rem;
+            top: 1.2rem; left: 0;
+            font-size: 0.8rem;
             letter-spacing: 0.1em;
-            color: var(--gray);
+            color: var(--gray-light);
             pointer-events: none;
             transition: all 0.3s ease;
         }
@@ -572,35 +746,26 @@
         .form-group textarea:focus ~ label,
         .form-group textarea:not(:placeholder-shown) ~ label {
             top: -0.5rem;
-            font-size: 0.7rem;
-            color: var(--gold-dark);
+            font-size: 0.65rem;
+            color: var(--gold);
         }
 
         .form-group textarea { resize: none; min-height: 120px; }
-
-        .contact-form .btn {
-            align-self: flex-start;
-            border-color: var(--gold-dark);
-            color: var(--gold-dark);
-        }
-
-        .contact-form .btn::before { background: var(--gold-dark); }
-
-        .contact-form .btn:hover { color: var(--cream); }
 
         .contact-degustation {
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 3rem;
-            background: var(--black);
+            background: var(--black-light);
+            border: 1px solid rgba(184, 163, 87, 0.1);
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(30px);
+            transition: all 1s ease 0.5s;
         }
-
-        .contact-degustation.visible { animation: fadeInUp 1s ease 0.5s forwards; }
+        .contact-degustation.visible { opacity: 1; transform: translateY(0); }
 
         .degustation-title {
             font-family: 'Cormorant Garamond', serif;
@@ -611,36 +776,35 @@
         }
 
         .degustation-text {
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.9;
             color: var(--cream);
-            opacity: 0.8;
+            opacity: 0.7;
             margin-bottom: 2.5rem;
         }
 
-        /* Footer */
+        /* ============================================
+           FOOTER WITH VINE
+           ============================================ */
         footer {
             background: var(--black);
-            padding: 4rem;
+            padding: 5rem 5rem 3rem;
             text-align: center;
-            border-top: 1px solid rgba(184, 163, 87, 0.1);
+            border-top: 1px solid rgba(184, 163, 87, 0.08);
+            position: relative;
         }
 
-        .footer-logo { height: 60px; margin-bottom: 2rem; opacity: 0.8; }
-
-        .footer-text { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gray); }
-
-        .footer-legal { margin-top: 2rem; font-size: 0.7rem; color: var(--gray); opacity: 0.6; }
+        .footer-logo { height: 55px; margin-bottom: 2rem; opacity: 0.7; }
+        .footer-text { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gray); }
+        .footer-legal { margin-top: 2rem; font-size: 0.65rem; color: var(--gray); opacity: 0.5; }
 
         /* ============================================
-           CARTE DES VINS - OVERLAY & ANIMATIONS
+           CARTE DES VINS OVERLAY
            ============================================ */
         .carte-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 2000;
             visibility: hidden;
             overflow: hidden;
@@ -650,37 +814,35 @@
 
         .carte-backdrop {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 10, 0.98);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(8, 8, 8, 0.96);
+            backdrop-filter: blur(20px);
             opacity: 0;
             transition: opacity 0.8s ease;
         }
 
         .carte-overlay.active .carte-backdrop { opacity: 1; }
 
-        /* --- NOUVEAUTÉ : COUVERTURE D'OUVERTURE --- */
+        /* Cover animation */
         .carte-cover {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: min(400px, 80vw);
-            height: min(600px, 80vh);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            width: min(380px, 80vw);
+            height: min(550px, 75vh);
             background: var(--black-light);
-            border: 1px solid var(--gold);
+            border: 1px solid rgba(184, 163, 87, 0.3);
             z-index: 2005;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center; /* Assure le centrage du texte */
+            text-align: center;
             padding: 2rem;
             opacity: 0;
             pointer-events: none;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.8);
             transition: all 1.2s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
@@ -695,154 +857,252 @@
             filter: blur(20px);
         }
 
-        .cover-logo {
-            width: 150px;
-            margin-bottom: 2rem;
-        }
+        .cover-logo { width: 140px; margin-bottom: 2rem; }
 
         .cover-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--gold);
             font-style: italic;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
         }
 
-        /* Carousel Container */
-        .carte-carousel {
+        /* Carte Content */
+        .carte-content {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90vw;
-            max-width: 1000px;
-            height: 85vh;
-            max-height: 700px;
-            perspective: 2500px;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             opacity: 0;
             transition: opacity 1s ease;
             z-index: 2002;
-        }
-
-        .carte-overlay.revealed .carte-carousel { opacity: 1; }
-
-        .carte-book {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-        }
-
-        /* Individual Pages with 3D Flip */
-        .carte-page {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
-            border-radius: 4px;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
-            transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
-            overflow: hidden;
-            backface-visibility: hidden;
-            z-index: 1;
-        }
-
-        /* --- NOUVEAUTÉ : ANIMATION PAGE TURN --- */
-        .carte-page.active {
-            transform: translateX(0) rotateY(0deg);
-            opacity: 1;
-            z-index: 10;
-        }
-
-        .carte-page.prev {
-            transform: translateX(-100%) rotateY(90deg); /* Effet page tournée vers la gauche */
-            opacity: 0;
-            z-index: 1;
-        }
-
-        .carte-page.next {
-            transform: translateX(100%) rotateY(-90deg); /* Effet page à venir de la droite */
-            opacity: 0;
-            z-index: 1;
-        }
-
-        /* Page Content */
-        .carte-page-inner {
-            height: 100%;
-            padding: 3rem;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .cuvee-image-container {
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100%;
+            justify-content: center;
         }
 
-        .cuvee-image-container img {
-            max-height: 90%;
-            max-width: 100%;
-            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+        .carte-overlay.revealed .carte-content { opacity: 1; }
+
+        .carte-page-wrapper {
+            width: 80vw;
+            max-width: 800px;
+            max-height: 85vh;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cuvee-content { color: var(--black); }
+        .carte-pages-track {
+            display: flex;
+            transition: none;
+        }
+
+        /* Page turn animation */
+        .carte-page {
+            min-width: 100%;
+            padding: 3rem 4rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: 85vh;
+            opacity: 0;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            transform: rotateY(-90deg);
+            transform-origin: left center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            backface-visibility: hidden;
+        }
+
+        .carte-page.active {
+            opacity: 1;
+            position: relative;
+            transform: rotateY(0deg);
+        }
+
+        .carte-page.turn-left {
+            transform: rotateY(90deg);
+            transform-origin: right center;
+            opacity: 0;
+        }
+
+        .carte-page.turn-right {
+            transform: rotateY(-90deg);
+            transform-origin: left center;
+            opacity: 0;
+        }
+
+        .carte-page::-webkit-scrollbar { width: 3px; }
+        .carte-page::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+        /* Cuvée card design */
+        .cuvee-header { margin-bottom: 2rem; }
 
         .cuvee-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--gold);
-            letter-spacing: 0.25em;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.3em;
+            opacity: 0.6;
         }
 
         .cuvee-name {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--black);
-            margin-bottom: 0.3rem;
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            color: var(--gold);
             line-height: 1.1;
+            margin: 0.5rem 0 0.3rem;
         }
 
         .cuvee-tagline {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.2rem;
-            color: var(--gold-dark);
-            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--gray-light);
+        }
+
+        .cuvee-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.3;
+            margin: 2rem 0;
         }
 
         .cuvee-description {
-            font-size: 0.9rem;
-            line-height: 1.9;
-            color: var(--gray);
-        }
-        
-        /* Add spacing between paragraphs in cuvee description */
-        .cuvee-description p {
-            margin-bottom: 1rem;
-        }
-        
-        .cuvee-description p:last-child {
-            margin-bottom: 0;
+            font-size: 0.88rem;
+            line-height: 1.95;
+            color: var(--gray-light);
+            margin-bottom: 2.5rem;
         }
 
-        /* Navigation overlay */
+        .cuvee-description p { margin-bottom: 0.8rem; }
+        .cuvee-description p:last-child { margin-bottom: 0; }
+
+        /* Rating System */
+        .cuvee-ratings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .rating-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        .rating-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .rating-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgba(184, 163, 87, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .rating-dot.filled {
+            border-color: var(--gold);
+            background: rgba(184, 163, 87, 0.18);
+            box-shadow: 0 0 10px rgba(184, 163, 87, 0.25);
+        }
+
+        .rating-dot img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            filter: brightness(2.5) contrast(1.4) saturate(1.3);
+        }
+
+        /* Accords Mets */
+        .cuvee-accords {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(184, 163, 87, 0.1);
+        }
+
+        .accords-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .accords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .accord-tag {
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(184, 163, 87, 0.2);
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            color: var(--gray-light);
+            text-transform: uppercase;
+        }
+
+        /* Carte Navigation - side arrows fixed on screen */
+        .carte-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(184, 163, 87, 0.3);
+            background: rgba(8, 8, 8, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2020;
+            backdrop-filter: blur(10px);
+        }
+
+        .carte-arrow:hover {
+            border-color: var(--gold);
+            background: rgba(184, 163, 87, 0.15);
+        }
+
+        .carte-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .carte-arrow-left { left: 2rem; }
+        .carte-arrow-right { right: 2rem; }
+
         .carte-close {
             position: fixed;
-            top: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
+            top: 2rem; right: 2rem;
+            width: 44px; height: 44px;
             background: transparent;
-            border: 1px solid var(--gold);
+            border: 1px solid rgba(184, 163, 87, 0.25);
             border-radius: 50%;
             cursor: pointer;
             z-index: 2010;
@@ -852,144 +1112,83 @@
             transition: all 0.3s ease;
         }
 
-        .carte-close:hover { background: var(--gold); }
+        .carte-close:hover { border-color: var(--gold); background: rgba(184, 163, 87, 0.1); }
 
         .carte-close::before, .carte-close::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 1px;
+            width: 18px; height: 1px;
             background: var(--gold);
         }
-
         .carte-close::before { transform: rotate(45deg); }
         .carte-close::after { transform: rotate(-45deg); }
-        .carte-close:hover::before, .carte-close:hover::after { background: var(--black); }
 
-        .carte-nav {
-            position: absolute;
-            bottom: 2rem;
+        /* Page counter */
+        .carte-counter {
+            position: fixed;
+            bottom: 2.5rem;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            z-index: 2005;
+            z-index: 2010;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+            opacity: 0.5;
         }
 
-        .carte-nav-btn {
-            width: 50px;
-            height: 50px;
-            border: 1px solid var(--gold);
-            background: rgba(10, 10, 10, 0.8);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .carte-nav-btn:hover { background: var(--gold); }
-        .carte-nav-btn svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--gold);
-            fill: none;
-            stroke-width: 2;
-        }
-        .carte-nav-btn:hover svg { stroke: var(--black); }
-
-        .carte-indicators { display: flex; gap: 0.5rem; }
-        .carte-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(184, 163, 87, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .carte-indicator.active {
-            background: var(--gold);
-            transform: scale(1.2);
-        }
-
-        /* Animations */
+        /* ============================================
+           KEYFRAMES
+           ============================================ */
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes heroLogoIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes heroLogoIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
         @keyframes lineExpand { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
-        @keyframes scrollPulse { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.8); } }
-        @keyframes bottleFloat { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scrollPulse { 0%, 100% { transform: scaleY(1); opacity: 1; } 50% { transform: scaleY(0.6); opacity: 0.5; } }
 
         /* ============================================
-           OPTIMISATION MOBILE (Correction Titre/Bouteille)
+           RESPONSIVE
            ============================================ */
         @media (max-width: 1024px) {
-            /* AJOUT : Correction de l'affichage 2 colonnes sur mobile */
+            section { padding: 6rem 2rem; }
+
             .teaser {
                 display: flex;
                 flex-direction: column;
                 gap: 4rem;
                 text-align: center;
             }
-            .teaser-image {
-                order: -1;
-            }
-            .contact-wrapper {
-                display: flex;
-                flex-direction: column;
-                gap: 3rem;
-            }
+            .teaser-image { order: -1; }
+            .teaser-text { max-width: 100%; }
 
-            .carte-page-inner {
-                grid-template-columns: 1fr;
-                grid-template-rows: 0.8fr 1.2fr;
-                padding: 1.5rem;
-                gap: 1rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                overflow-y: auto;
-                padding-bottom: 8rem; /* AJOUT : Espace pour les flèches en bas */
-            }
+            .sf-step { grid-template-columns: 1fr; gap: 2rem; }
+            .sf-step:nth-child(even) .sf-step-visual { order: 0; }
+            .sf-step:nth-child(even) .sf-step-content { order: 0; text-align: left; }
+            .sf-timeline::before { display: none; }
 
-            .cuvee-image-container {
-                height: 35%;
-                min-height: 200px;
-                margin-bottom: 1rem;
-            }
+            .contact-wrapper { display: flex; flex-direction: column; gap: 3rem; }
 
-            .cuvee-image-container img {
-                max-height: 100%;
-                object-fit: contain;
-            }
+            .carte-page { padding: 2rem 1.5rem; }
+            .cuvee-ratings { grid-template-columns: 1fr; gap: 0.8rem; }
+            .rating-label { min-width: 75px; font-size: 0.6rem; }
+            .rating-dot { width: 28px; height: 28px; }
+            .rating-dot img { width: 20px; height: 20px; filter: brightness(3) contrast(1.5) saturate(1.4); }
+            .rating-dots { gap: 3px; }
+            .carte-arrow-left { left: 0.5rem; }
+            .carte-arrow-right { right: 0.5rem; }
 
-            .cuvee-content {
-                text-align: center;
-                padding-bottom: 2rem;
-            }
-
-            .cuvee-name {
-                font-size: 1.8rem;
-                margin-top: 0.5rem;
-                line-height: 1.2;
-            }
-
-            .cuvee-tagline { font-size: 1rem; margin-bottom: 1rem; }
-            .cuvee-description { font-size: 0.85rem; line-height: 1.7; }
+            .maison-vine { display: none; }
         }
 
         @media (max-width: 768px) {
-            nav { padding: 1.5rem 2rem; }
-            .nav-logo { height: 50px; }
+            nav { padding: 1.5rem 1.5rem; }
+            nav.scrolled { padding: 1rem 1.5rem; }
+            .nav-logo { height: 45px; }
             .nav-links {
                 position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%;
-                height: 100vh;
+                top: 0; right: -100%;
+                width: 100%; height: 100vh;
                 background: var(--black);
                 flex-direction: column;
                 justify-content: center;
@@ -998,30 +1197,39 @@
                 transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             }
             .nav-links.active { right: 0; }
-            .nav-links a { font-size: 1.2rem; }
+            .nav-links a { font-size: 1.1rem; }
             .menu-toggle { display: flex; }
+
             section { padding: 5rem 1.5rem; }
-            .carte-carousel { width: 100vw; height: 100vh; max-height: 100vh; }
-            .carte-nav { bottom: 1.5rem; }
+
+            .galerie-item { width: 280px; height: 200px; }
+
+            .carte-arrow { width: 38px; height: 38px; }
+            .carte-arrow svg { width: 16px; height: 16px; }
+            .carte-arrow-left { left: 0.5rem; }
+            .carte-arrow-right { right: 0.5rem; }
+            .carte-page { padding: 2rem 1rem; padding-bottom: 4rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- GOLD PARTICLES -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- NAV -->
     <nav id="navbar">
         <img src="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true" alt="AMA Champagne" class="nav-logo">
         <ul class="nav-links" id="navLinks">
             <li><a href="#maison">La Maison</a></li>
+            <li><a href="#savoir-faire">Savoir-Faire</a></li>
             <li><a href="#cuvees">Les Cuvées</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="menu-toggle" id="menuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
     </nav>
 
+    <!-- HERO -->
     <section class="hero" id="hero">
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://res.cloudinary.com/dam1weknl/video/upload/v1766333842/Cinematic_aerial_footage_over_Champagne_vineyards_at_golden_hour__Camera_moves_slowly_forward_follow_ij0ba8.mp4" type="video/mp4">
@@ -1038,15 +1246,16 @@
         </div>
     </section>
 
+    <!-- TEASER -->
     <section class="teaser">
         <div class="teaser-image">
             <div class="teaser-glow"></div>
-            <img src="https://github.com/Allan77bot/bouteille-champagne-/blob/main/Design%20sans%20titre%20(3).png?raw=true" alt="Bouteille AMA Champagne" class="teaser-bottle" data-animate>
+            <img src="https://github.com/AmaChampagne/bouteille/blob/main/bouteille.png?raw=true" alt="Bouteille AMA Champagne" class="teaser-bottle" data-animate>
         </div>
         <div class="teaser-content">
             <h2 class="section-title" data-animate>L'excellence,<br>sans compromis</h2>
             <p class="teaser-text" data-animate>
-                Huit cuvées d'exception, nées d'une sélection rigoureuse et d'un savoir-faire transmis. 
+                Huit cuvées d'exception, nées d'une sélection rigoureuse et d'un savoir-faire transmis.
                 Chaque bouteille porte l'empreinte d'un terroir respecté et d'une patience qui ne se négocie pas.
             </p>
             <div class="teaser-cta" data-animate>
@@ -1055,6 +1264,7 @@
         </div>
     </section>
 
+    <!-- LA MAISON -->
     <section class="maison" id="maison">
         <div class="maison-content">
             <span class="section-subtitle" data-animate>Notre histoire</span>
@@ -1068,6 +1278,76 @@
         </div>
     </section>
 
+    <!-- SAVOIR-FAIRE (NEW) -->
+    <section class="savoir-faire" id="savoir-faire">
+        <div class="sf-header">
+            <span class="section-subtitle" data-animate>De la vigne à la bouteille</span>
+            <h2 class="section-title" data-animate>Savoir-Faire</h2>
+        </div>
+        <div class="sf-timeline">
+            <div class="sf-step" data-animate>
+                <div class="sf-step-visual">
+                    <img src="https://github.com/AmaChampagne/1/blob/main/1.png?raw=true" alt="Le Terroir">
+                </div>
+                <div class="sf-step-content">
+                    <span class="sf-step-number">01</span>
+                    <h3 class="sf-step-title">Le Terroir</h3>
+                    <p class="sf-step-text">Nos parcelles sont sélectionnées parmi les coteaux les plus nobles de la Champagne. Chaque sol raconte une histoire, chaque exposition façonne le caractère du raisin.</p>
+                </div>
+            </div>
+            <div class="sf-step" data-animate>
+                <div class="sf-step-visual">
+                    <img src="https://github.com/AmaChampagne/1/blob/main/2.png?raw=true" alt="Les Vendanges">
+                </div>
+                <div class="sf-step-content">
+                    <span class="sf-step-number">02</span>
+                    <h3 class="sf-step-title">Les Vendanges</h3>
+                    <p class="sf-step-text">Récoltés exclusivement à la main, les raisins sont cueillis à maturité optimale. Chaque grappe est inspectée, triée, choisie avec une attention méticuleuse.</p>
+                </div>
+            </div>
+            <div class="sf-step" data-animate>
+                <div class="sf-step-visual">
+                    <img src="https://github.com/AmaChampagne/1/blob/main/3.png?raw=true" alt="L'Assemblage">
+                </div>
+                <div class="sf-step-content">
+                    <span class="sf-step-number">03</span>
+                    <h3 class="sf-step-title">L'Assemblage</h3>
+                    <p class="sf-step-text">L'art de l'assemblage est au cœur de notre savoir-faire. Chaque cuvée est composée avec précision, équilibrant structure, fraîcheur et complexité pour atteindre l'harmonie parfaite.</p>
+                </div>
+            </div>
+            <div class="sf-step" data-animate>
+                <div class="sf-step-visual">
+                    <img src="https://github.com/AmaChampagne/1/blob/main/4.png?raw=true" alt="Le Vieillissement">
+                </div>
+                <div class="sf-step-content">
+                    <span class="sf-step-number">04</span>
+                    <h3 class="sf-step-title">Le Vieillissement</h3>
+                    <p class="sf-step-text">Dans l'obscurité de nos caves, le temps opère sa magie. Chaque bouteille repose patiemment, développant ses arômes et sa complexité bien au-delà des exigences réglementaires.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIE IMMERSIVE (NEW) -->
+    <section class="galerie" id="galerie">
+        <div class="galerie-header">
+            <span class="section-subtitle" data-animate>Instants</span>
+            <h2 class="section-title" data-animate>Galerie</h2>
+        </div>
+        <div class="galerie-strip">
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/1.1.png?raw=true" alt="AMA Champagne"></div>
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/2.2.png?raw=true" alt="AMA Champagne"></div>
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/3.3.png?raw=true" alt="AMA Champagne"></div>
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/f9bdc3ee-1ccd-45b9-b79c-eeb56d7588ee.png?raw=true" alt="AMA Champagne"></div>
+            <!-- Duplicate for infinite scroll -->
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/1.1.png?raw=true" alt="AMA Champagne"></div>
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/2.2.png?raw=true" alt="AMA Champagne"></div>
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/3.3.png?raw=true" alt="AMA Champagne"></div>
+            <div class="galerie-item"><img src="https://github.com/AmaChampagne/galeries/blob/main/f9bdc3ee-1ccd-45b9-b79c-eeb56d7588ee.png?raw=true" alt="AMA Champagne"></div>
+        </div>
+    </section>
+
+    <!-- NOS CUVÉES INTRO -->
     <section class="cuvees-intro" id="cuvees">
         <div class="cuvees-intro-content">
             <span class="section-subtitle" data-animate>Collection</span>
@@ -1077,6 +1357,7 @@
         </div>
     </section>
 
+    <!-- CONTACT -->
     <section class="contact" id="contact">
         <div class="contact-wrapper">
             <div class="contact-left">
@@ -1106,209 +1387,226 @@
         </div>
     </section>
 
+    <!-- FOOTER WITH VINE -->
     <footer>
         <img src="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true" alt="AMA Champagne" class="footer-logo">
         <p class="footer-text">L'abus d'alcool est dangereux pour la santé. À consommer avec modération.</p>
         <p class="footer-legal">© 2025 AMA Champagne. Tous droits réservés.</p>
     </footer>
 
-    <!-- CARTE DES VINS OVERLAY -->
+    <!-- ============================================
+         CARTE DES VINS OVERLAY (REDESIGNED)
+         ============================================ -->
     <div class="carte-overlay" id="carteOverlay">
         <div class="carte-backdrop"></div>
-        
-        <!-- NOUVEAU : COUVERTURE -->
+
         <div class="carte-cover" id="carteCover">
             <img src="https://github.com/Allan77bot/logochampagne/blob/main/Design%20sans%20titre%20(4).png?raw=true" alt="AMA" class="cover-logo">
             <h3 class="cover-title">Notre Carte</h3>
         </div>
 
         <button class="carte-close" id="closeCarte"></button>
-        
-        <div class="carte-carousel">
-            <div class="carte-book">
-                <!-- PAGE 1: AUTHENTIC -->
-                <div class="carte-page active" data-index="0">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/authentic/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20.png?raw=true" alt="AMA Authentic">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 01 / 08</span>
-                            <h2 class="cuvee-name">Authentic</h2>
-                            <p class="cuvee-tagline">La signature de la maison.</p>
-                            <div class="cuvee-description">
-                                <p>Authentic incarne la justesse et la sincérité de l’expression AMA dans sa forme la plus directe et la plus pure.</p>
-                                <p>Le nez offre un fruit blanc net, précis, presque cristallin, soutenu par une fraîcheur lumineuse.</p>
-                                <p>La bouche révèle un équilibre immédiat entre vivacité et texture soyeuse. Rien ne dépasse, tout s’accorde avec naturel, donnant une sensation d’évidence et de fluidité.</p>
-                                <p>La cuvée de service des établissements d’exception, polyvalente, élégante, toujours juste.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <button class="carte-arrow carte-arrow-left" id="prevBtn">
+            <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"></polyline></svg>
+        </button>
+        <button class="carte-arrow carte-arrow-right" id="nextBtn">
+            <svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"></polyline></svg>
+        </button>
 
-                <!-- PAGE 2: HÉRITAGE -->
-                <div class="carte-page next" data-index="1">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/heritage/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(1).png?raw=true" alt="AMA Héritage">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 02 / 08</span>
-                            <h2 class="cuvee-name">Héritage</h2>
-                            <p class="cuvee-tagline">La tradition sublimée.</p>
-                            <div class="cuvee-description">
-                                <p>Héritage incarne la continuité d’un savoir-faire maîtrisé, porté par l’équilibre, la subtilité et la précision du geste.</p>
-                                <p>Le nez révèle une douceur florale, une fraîcheur délicate et une texture aromatique élégante qui évoque la sérénité.</p>
-                                <p>La bouche est ronde, harmonieuse, enveloppante sans jamais peser. La matière se fond dans l’ensemble, créant une sensation d’évidence et d’équilibre durable.</p>
-                                <p>Une cuvée de précision pensée pour accompagner la haute gastronomie avec discrétion et noblesse.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="carte-content">
+            <div class="carte-page-wrapper">
 
-                <!-- PAGE 3: PERLE NOIRE / ÂME BLANCHE -->
-                <div class="carte-page next" data-index="2">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/perle-noire-ame-blanche/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(2).png?raw=true" alt="AMA Perle Noire">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 03 / 08</span>
-                            <h2 class="cuvee-name">Perle Noire</h2>
-                            <p class="cuvee-tagline">Âme Blanche.</p>
-                            <div class="cuvee-description">
-                                <p>Perle Noire révèle la profondeur et la structure. Le nez évoque une maturité élégante, une trame minérale fine et une fraîcheur contenue. En bouche, la matière est posée, enveloppante sans lourdeur, avec une sensation de densité maîtrisée. La finale s’étire avec distinction, dans une élégance feutrée.</p>
-                                <p>Âme Blanche dévoile la facette lumineuse et aérienne. Le nez s’ouvre sur des notes florales fines et un fruit blanc cristallin. La bouche est fluide, soyeuse, portée par une fraîcheur élégante qui prolonge une impression de pureté et de légèreté maîtrisée.</p>
-                                <p>Deux interprétations d’une même identité, proposées selon l’atmosphère recherchée par l’établissement.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE 4: MUSE -->
-                <div class="carte-page next" data-index="3">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/Muse/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(4).png?raw=true" alt="AMA Muse">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 04 / 08</span>
-                            <h2 class="cuvee-name">Muse</h2>
-                            <p class="cuvee-tagline">L'inspiration du terroir.</p>
-                            <div class="cuvee-description">
-                                <p>Muse exprime la singularité d’une sélection parcellaire choisie pour son identité et sa profondeur naturelle.</p>
-                                <p>Le bouquet suggère un fruit sombre délicat, une tension minérale nette et une dimension subtilement pâtissière qui apporte relief et complexité. Le vin respire la précision et la retenue.</p>
-                                <p>La bouche révèle une structure dense mais parfaitement maîtrisée. La matière est droite, construite, avec une énergie interne qui porte le vin vers une finale saline, longue et raffinée.</p>
-                                <p>Une cuvée d’auteur, conçue pour les cartes où chaque référence porte une signature et une intention.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE 5: TRINITÉ -->
-                <div class="carte-page next" data-index="4">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/trinit-/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(6).png?raw=true" alt="AMA Trinité">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 05 / 08</span>
-                            <h2 class="cuvee-name">Trinité</h2>
-                            <p class="cuvee-tagline">L'équilibre absolu.</p>
-                            <div class="cuvee-description">
-                                <p>Trinité incarne l’union maîtrisée de trois expressions complémentaires réunies dans une architecture profonde et parfaitement harmonisée.</p>
-                                <p>Le nez révèle une complexité noble où se superposent une matière subtilement boisée, une chaleur délicate et un fruit mûr d’une grande précision. L’ensemble dégage une impression de profondeur tranquille, jamais appuyée.</p>
-                                <p>En bouche, la texture est ample, enveloppante, presque tactile. La matière s’installe avec lenteur et assurance, portée par une effervescence fine qui sculpte le vin sans le brusquer.</p>
-                                <p>La finale, longue et racée, prolonge une sensation de plénitude, laissant une empreinte élégante et persistante.</p>
-                                <p>Une cuvée pensée pour la gastronomie, là où le champagne accompagne la cuisine avec présence et distinction.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE 6: APOTHÉOSE -->
-                <div class="carte-page next" data-index="5">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/apoth-ose/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(5).png?raw=true" alt="AMA Apothéose">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 06 / 08</span>
-                            <h2 class="cuvee-name">Apothéose</h2>
-                            <p class="cuvee-tagline">L'expression du sommet.</p>
-                            <div class="cuvee-description">
-                                <p>Apothéose traduit la concentration naturelle et la profondeur du vignoble, dans une lecture pure et structurée du terroir.</p>
-                                <p>Le nez suggère une minéralité crayeuse, des agrumes nobles et un fruit blanc mûr d’une grande précision.</p>
-                                <p>La bouche est ample, construite, d’une tenue remarquable. La matière s’étire avec autorité, soutenue par une tension minérale qui donne au vin sa verticalité et sa longueur.</p>
-                                <p>Une cuvée rare destinée aux cartes les plus pointues.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE 7: DIVINITÉ -->
-                <div class="carte-page next" data-index="6">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/divinit-/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(7).png?raw=true" alt="AMA Divinité">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 07 / 08</span>
-                            <h2 class="cuvee-name">Divinité</h2>
-                            <p class="cuvee-tagline">La rareté en art.</p>
-                            <div class="cuvee-description">
-                                <p>Élaborée uniquement lors des années remarquables, Divinité se distingue par sa retenue, sa pureté et son élégance naturelle.</p>
-                                <p>Le nez mêle fleurs blanches, fraîcheur délicate et nuances beurrées subtilement intégrées.</p>
-                                <p>La bouche est fine, droite, portée par une effervescence parfaitement intégrée qui accompagne le vin sans jamais le dominer. La finale, longue et pure, laisse une impression de précision et de sophistication.</p>
-                                <p>Réservée aux grandes tables et aux moments d’exception.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PAGE 8: ROSE VELOUR -->
-                <div class="carte-page next" data-index="7">
-                    <div class="carte-page-inner">
-                        <div class="cuvee-image-container">
-                            <img src="https://github.com/Allan77bot/rose-velour/blob/main/Luxury%20champagne%20product%20photography.%20Keep%20the%20exact%20same%20bottle%20shape%20and%20glass%20color%20from%20the%20reference%20image.%20Place%20the%20provided%20AMA%20Champagne%20logo%20on%20the%20gold%20foil%20capsule%20covering%20the%20bottle%20%20(8).png?raw=true" alt="AMA Rose Velour">
-                        </div>
-                        <div class="cuvee-content">
-                            <span class="cuvee-number">— 08 / 08</span>
-                            <h2 class="cuvee-name">Rose Velour</h2>
-                            <p class="cuvee-tagline">Le velours rosé.</p>
-                            <div class="cuvee-description">
-                                <p>Rose Velour séduit par sa texture soyeuse et son élégance gourmande maîtrisée.</p>
-                                <p>Le nez évoque un fruit rouge frais et délicat, porté par une finesse aromatique subtile.</p>
-                                <p>La bouche est douce, veloutée, avec une matière ronde parfaitement équilibrée par une fraîcheur discrète. La sensation tactile domine, laissant une impression de douceur élégante et persistante.</p>
-                                <p>Pensé pour les desserts raffinés et certaines cuisines audacieuses.</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="carte-pages-track" id="pagesTrack">
+                    <!-- All 8 cuvée pages will be injected by JS -->
                 </div>
             </div>
         </div>
 
-        <div class="carte-nav">
-            <button class="carte-nav-btn" id="prevBtn"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"></polyline></svg></button>
-            <div class="carte-indicators" id="indicators">
-                <span class="carte-indicator active" data-index="0"></span>
-                <span class="carte-indicator" data-index="1"></span>
-                <span class="carte-indicator" data-index="2"></span>
-                <span class="carte-indicator" data-index="3"></span>
-                <span class="carte-indicator" data-index="4"></span>
-                <span class="carte-indicator" data-index="5"></span>
-                <span class="carte-indicator" data-index="6"></span>
-                <span class="carte-indicator" data-index="7"></span>
-            </div>
-            <button class="carte-nav-btn" id="nextBtn"><svg viewBox="0 0 24 24"><polyline points="9,18 15,12 9,6"></polyline></svg></button>
-        </div>
+        <div class="carte-counter" id="carteCounter">01 — 08</div>
     </div>
 
     <script>
+        // ============================================
+        // DATA: All cuvées
+        // ============================================
+        const DEER_HEAD = 'https://github.com/AmaChampagne/t-te/blob/main/Tete%20Dor%C3%A9e.png?raw=true';
+
+        const cuvees = [
+            {
+                name: 'Authentic',
+                tagline: 'La signature de la maison.',
+                number: '01',
+                total: '08',
+                description: `<p>Authentic incarne la justesse et la sincérité de l'expression AMA dans sa forme la plus directe et la plus pure.</p><p>Le nez offre un fruit blanc net, précis, presque cristallin, soutenu par une fraîcheur lumineuse.</p><p>La bouche révèle un équilibre immédiat entre vivacité et texture soyeuse. Rien ne dépasse, tout s'accorde avec naturel, donnant une sensation d'évidence et de fluidité.</p><p>La cuvée de service des établissements d'exception, polyvalente, élégante, toujours juste.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 5 },
+                    { label: 'Fraîcheur', value: 3 },
+                    { label: 'Amertume', value: 1 },
+                    { label: 'Fruité', value: 3 },
+                    { label: 'Douceur', value: 3 },
+                    { label: 'Minéralité', value: 4 }
+                ],
+                accords: ['Noix de Saint-Jacques poêlées', 'Turbot en croûte de sel', 'Risotto aux asperges blanches', 'Fromages à pâte molle affinés']
+            },
+            {
+                name: 'Héritage',
+                tagline: 'La tradition sublimée.',
+                number: '02',
+                total: '08',
+                description: `<p>Héritage incarne la continuité d'un savoir-faire maîtrisé, porté par l'équilibre, la subtilité et la précision du geste.</p><p>Le nez révèle une douceur florale, une fraîcheur délicate et une texture aromatique élégante qui évoque la sérénité.</p><p>La bouche est ronde, harmonieuse, enveloppante sans jamais peser. La matière se fond dans l'ensemble, créant une sensation d'évidence et d'équilibre durable.</p><p>Une cuvée de précision pensée pour accompagner la haute gastronomie avec discrétion et noblesse.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 4 },
+                    { label: 'Fraîcheur', value: 2 },
+                    { label: 'Amertume', value: 2 },
+                    { label: 'Fruité', value: 4 },
+                    { label: 'Douceur', value: 5 },
+                    { label: 'Minéralité', value: 1 }
+                ],
+                accords: ['Homard bleu grillé', 'Volaille de Bresse en croûte', 'Foie gras poêlé aux figues', 'Comté affiné 24 mois']
+            },
+            {
+                name: 'Perle Noire',
+                tagline: 'Âme Blanche.',
+                number: '03',
+                total: '08',
+                description: `<p>Perle Noire révèle la profondeur et la structure. Le nez évoque une maturité élégante, une trame minérale fine et une fraîcheur contenue. En bouche, la matière est posée, enveloppante sans lourdeur, avec une sensation de densité maîtrisée.</p><p>Âme Blanche dévoile la facette lumineuse et aérienne. Le nez s'ouvre sur des notes florales fines et un fruit blanc cristallin. La bouche est fluide, soyeuse, portée par une fraîcheur élégante.</p><p>Deux interprétations d'une même identité, proposées selon l'atmosphère recherchée par l'établissement.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 5 },
+                    { label: 'Fraîcheur', value: 4 },
+                    { label: 'Amertume', value: 3 },
+                    { label: 'Fruité', value: 2 },
+                    { label: 'Douceur', value: 2 },
+                    { label: 'Minéralité', value: 3 }
+                ],
+                accords: ['Carpaccio de bar au yuzu', 'Caviar Osciètre', 'Langoustines rôties', 'Ceviche de daurade royale']
+            },
+            {
+                name: 'Muse',
+                tagline: "L'inspiration du terroir.",
+                number: '04',
+                total: '08',
+                description: `<p>Muse exprime la singularité d'une sélection parcellaire choisie pour son identité et sa profondeur naturelle.</p><p>Le bouquet suggère un fruit sombre délicat, une tension minérale nette et une dimension subtilement pâtissière qui apporte relief et complexité.</p><p>La bouche révèle une structure dense mais parfaitement maîtrisée. La matière est droite, construite, avec une énergie interne qui porte le vin vers une finale saline, longue et raffinée.</p><p>Une cuvée d'auteur, conçue pour les cartes où chaque référence porte une signature et une intention.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 6 },
+                    { label: 'Fraîcheur', value: 2 },
+                    { label: 'Puissance', value: 6 },
+                    { label: 'Fruité', value: 2 },
+                    { label: 'Douceur', value: 3 },
+                    { label: 'Minéralité', value: 4 }
+                ],
+                accords: ['Pigeon en croûte de truffe', 'Ris de veau dorés', 'Saint-Jacques snackées au beurre noisette', 'Parmesan Reggiano 36 mois']
+            },
+            {
+                name: 'Trinité',
+                tagline: "L'équilibre absolu.",
+                number: '05',
+                total: '08',
+                description: `<p>Trinité incarne l'union maîtrisée de trois expressions complémentaires réunies dans une architecture profonde et parfaitement harmonisée.</p><p>Le nez révèle une complexité noble où se superposent une matière subtilement boisée, une chaleur délicate et un fruit mûr d'une grande précision.</p><p>En bouche, la texture est ample, enveloppante, presque tactile. La matière s'installe avec lenteur et assurance, portée par une effervescence fine qui sculpte le vin sans le brusquer.</p><p>Une cuvée pensée pour la gastronomie, là où le champagne accompagne la cuisine avec présence et distinction.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 6 },
+                    { label: 'Fraîcheur', value: 3 },
+                    { label: 'Amertume', value: 2 },
+                    { label: 'Fruité', value: 3 },
+                    { label: 'Douceur', value: 3 },
+                    { label: 'Minéralité', value: 3 }
+                ],
+                accords: ['Turbot rôti aux cèpes', 'Côte de veau épaisse', 'Homard thermidor', 'Truffe noire du Périgord']
+            },
+            {
+                name: 'Apothéose',
+                tagline: "L'expression du sommet.",
+                number: '06',
+                total: '08',
+                description: `<p>Apothéose traduit la concentration naturelle et la profondeur du vignoble, dans une lecture pure et structurée du terroir.</p><p>Le nez suggère une minéralité crayeuse, des agrumes nobles et un fruit blanc mûr d'une grande précision.</p><p>La bouche est ample, construite, d'une tenue remarquable. La matière s'étire avec autorité, soutenue par une tension minérale qui donne au vin sa verticalité et sa longueur.</p><p>Une cuvée rare destinée aux cartes les plus pointues.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 6 },
+                    { label: 'Fraîcheur', value: 2 },
+                    { label: 'Puissance', value: 6 },
+                    { label: 'Fruité', value: 4 },
+                    { label: 'Douceur', value: 4 },
+                    { label: 'Minéralité', value: 6 }
+                ],
+                accords: ['Caviar Beluga', 'Sole meunière au beurre clarifié', 'Oursin frais', 'Homard bleu en Bellevue']
+            },
+            {
+                name: 'Divinité',
+                tagline: 'La rareté en art.',
+                number: '07',
+                total: '08',
+                description: `<p>Élaborée uniquement lors des années remarquables, Divinité se distingue par sa retenue, sa pureté et son élégance naturelle.</p><p>Le nez mêle fleurs blanches, fraîcheur délicate et nuances beurrées subtilement intégrées.</p><p>La bouche est fine, droite, portée par une effervescence parfaitement intégrée qui accompagne le vin sans jamais le dominer. La finale, longue et pure, laisse une impression de précision et de sophistication.</p><p>Réservée aux grandes tables et aux moments d'exception.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 5 },
+                    { label: 'Fraîcheur', value: 5 },
+                    { label: 'Amertume', value: 2 },
+                    { label: 'Fruité', value: 4 },
+                    { label: 'Douceur', value: 5 },
+                    { label: 'Minéralité', value: 4 }
+                ],
+                accords: ['Truffe blanche d\'Alba', 'Lièvre à la royale', 'Bar de ligne en croûte de sel', 'Brie de Meaux truffé']
+            },
+            {
+                name: 'Rose Velour',
+                tagline: 'Le velours rosé.',
+                number: '08',
+                total: '08',
+                description: `<p>Rose Velour séduit par sa texture soyeuse et son élégance gourmande maîtrisée.</p><p>Le nez évoque un fruit rouge frais et délicat, porté par une finesse aromatique subtile.</p><p>La bouche est douce, veloutée, avec une matière ronde parfaitement équilibrée par une fraîcheur discrète. La sensation tactile domine, laissant une impression de douceur élégante et persistante.</p><p>Pensé pour les desserts raffinés et certaines cuisines audacieuses.</p>`,
+                ratings: [
+                    { label: 'Structure', value: 4 },
+                    { label: 'Fraîcheur', value: 4 },
+                    { label: 'Amertume', value: 0 },
+                    { label: 'Fruité', value: 6 },
+                    { label: 'Douceur', value: 6 },
+                    { label: 'Minéralité', value: 3 }
+                ],
+                accords: ['Tarte aux fraises des bois', 'Foie gras mi-cuit', 'Saumon sauvage gravlax', 'Macaron aux fruits rouges']
+            }
+        ];
+
+        // ============================================
+        // BUILD CUVÉE PAGES
+        // ============================================
+        const pagesTrack = document.getElementById('pagesTrack');
+
+        cuvees.forEach((c, i) => {
+            const ratingsHTML = c.ratings.map(r => {
+                let dots = '';
+                for (let d = 0; d < 6; d++) {
+                    if (d < r.value) {
+                        dots += `<span class="rating-dot filled"><img src="${DEER_HEAD}" alt="●"></span>`;
+                    } else {
+                        dots += `<span class="rating-dot"></span>`;
+                    }
+                }
+                return `<div class="rating-row"><span class="rating-label">${r.label}</span><div class="rating-dots">${dots}</div></div>`;
+            }).join('');
+
+            const accordsHTML = c.accords.map(a => `<span class="accord-tag">${a}</span>`).join('');
+
+            const page = document.createElement('div');
+            page.className = 'carte-page';
+            page.innerHTML = `
+                <div class="cuvee-header">
+                    <span class="cuvee-number">— ${c.number} / ${c.total}</span>
+                    <h2 class="cuvee-name">${c.name}</h2>
+                    <p class="cuvee-tagline">${c.tagline}</p>
+                </div>
+                <div class="cuvee-divider"></div>
+                <div class="cuvee-description">${c.description}</div>
+                <div class="cuvee-ratings">${ratingsHTML}</div>
+                <div class="cuvee-accords">
+                    <h4 class="accords-title">Accords Mets & Champagne</h4>
+                    <div class="accords-list">${accordsHTML}</div>
+                </div>
+            `;
+            pagesTrack.appendChild(page);
+        });
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
+            navbar.classList.toggle('scrolled', window.scrollY > 80);
         });
 
         const menuToggle = document.getElementById('menuToggle');
@@ -1318,29 +1616,60 @@
             navLinks.classList.toggle('active');
         });
 
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
         document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
 
-        // CAROUSEL LOGIC
+        // ============================================
+        // CARTE DES VINS
+        // ============================================
         const carteOverlay = document.getElementById('carteOverlay');
         const openCarteBtn = document.getElementById('openCarte');
         const closeCarteBtn = document.getElementById('closeCarte');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const pages = document.querySelectorAll('.carte-page');
-        const indicators = document.querySelectorAll('.carte-indicator');
-        let currentIndex = 0;
-        let isAnimating = false;
+        const carteCounter = document.getElementById('carteCounter');
+        const track = document.getElementById('pagesTrack');
+        let currentPage = 0;
+        const totalPages = cuvees.length;
+
+        function updateCarte(direction) {
+            const allPages = track.querySelectorAll('.carte-page');
+            allPages.forEach((page, i) => {
+                page.classList.remove('active', 'turn-left', 'turn-right');
+                if (i === currentPage) {
+                    page.classList.add('active');
+                } else if (i < currentPage) {
+                    page.classList.add('turn-left');
+                } else {
+                    page.classList.add('turn-right');
+                }
+            });
+            const num = String(currentPage + 1).padStart(2, '0');
+            carteCounter.textContent = `${num} — 0${totalPages}`;
+        }
 
         openCarteBtn.addEventListener('click', () => {
             carteOverlay.classList.add('active');
             document.body.classList.add('carte-open');
-            // Delai pour l'animation de la couverture
-            setTimeout(() => {
-                carteOverlay.classList.add('revealed');
-            }, 1200);
+            currentPage = 0;
+            updateCarte('right');
+            setTimeout(() => carteOverlay.classList.add('revealed'), 1200);
         });
 
         closeCarteBtn.addEventListener('click', () => {
@@ -1348,35 +1677,87 @@
             document.body.classList.remove('carte-open');
         });
 
-        function goToPage(index) {
-            if (isAnimating || index < 0 || index >= pages.length) return;
-            isAnimating = true;
-            currentIndex = index;
-            updateCarousel();
-            setTimeout(() => { isAnimating = false; }, 1200);
-        }
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) { currentPage--; updateCarte(); }
+        });
 
-        function updateCarousel() {
-            pages.forEach((page, i) => {
-                page.classList.remove('prev', 'active', 'next');
-                if (i === currentIndex) page.classList.add('active');
-                else if (i < currentIndex) page.classList.add('prev');
-                else page.classList.add('next');
-            });
-            indicators.forEach((ind, i) => ind.classList.toggle('active', i === currentIndex));
-        }
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages - 1) { currentPage++; updateCarte(); }
+        });
 
-        prevBtn.addEventListener('click', () => goToPage(currentIndex - 1));
-        nextBtn.addEventListener('click', () => goToPage(currentIndex + 1));
-        indicators.forEach(ind => ind.addEventListener('click', () => goToPage(parseInt(ind.dataset.index))));
+        // Keyboard nav
+        document.addEventListener('keydown', (e) => {
+            if (!carteOverlay.classList.contains('active')) return;
+            if (e.key === 'Escape') closeCarteBtn.click();
+            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
+        });
 
-        // Swipe support
+        // Swipe
         let startX = 0;
         carteOverlay.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
         carteOverlay.addEventListener('touchend', (e) => {
-            let diff = startX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) diff > 0 ? goToPage(currentIndex + 1) : goToPage(currentIndex - 1);
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentPage < totalPages - 1) { currentPage++; updateCarte(); }
+                else if (diff < 0 && currentPage > 0) { currentPage--; updateCarte(); }
+            }
         });
+
+        // ============================================
+        // GOLD PARTICLE SYSTEM
+        // ============================================
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = -(Math.random() * 0.3 + 0.1);
+                this.speedX = (Math.random() - 0.5) * 0.2;
+                this.opacity = Math.random() * 0.3 + 0.05;
+                this.fadeSpeed = Math.random() * 0.002 + 0.001;
+                this.life = 1;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.01) * 0.1;
+                this.life -= this.fadeSpeed;
+                if (this.life <= 0 || this.y < -10) this.reset();
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(184, 163, 87, ${this.opacity * this.life})`;
+                ctx.fill();
+            }
+        }
+
+        // Create particles
+        const particleCount = Math.min(60, Math.floor(window.innerWidth / 25));
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
     </script>
 </body>
 </html>
